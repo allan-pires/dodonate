@@ -1,24 +1,11 @@
-# README
+# DoDonate
+![dodo](https://i.imgur.com/Qx6aIEb.jpg)
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## About
+DoDonate is a web application that helps people who want to donate something to find where they can donate it.
 
-Things you may want to cover:
+## How to use
+Instructions goes here
 
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+## Disclaimer
+Illustrations by *Vecteezy.com*
