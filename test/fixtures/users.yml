@@ -2,10 +2,10 @@
 
 one:
   name: MyString
-  login: MyString
+  email: MyString
   encrypted_password: MyString
 
 two:
   name: MyString
-  login: MyString
+  email: MyString
   encrypted_password: MyString
