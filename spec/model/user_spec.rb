@@ -1,7 +1,7 @@
 require "spec_helper"
 
 describe User do
-  let (:user) { User.new(name: "Adalberto", email: "adalberto@gmail.com") }
+  let (:user) { User.new(name: "Adalberto", email: "adalberto@gmail.com", encrypted_password: "minhasenha") }
 
   describe ".valid?" do
   	
