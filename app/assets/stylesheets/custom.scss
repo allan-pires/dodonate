@@ -25,6 +25,33 @@ textarea {
   margin-bottom: 10px;
 }
 
+.navbar-inverse {
+  background-color: #007786;
+  border-color: #F6CA25;
+  border: none;
+
+  .navbar-nav li { 
+    a {
+      color: white;
+    }
+  }
+
+  .navbar-nav li:hover { 
+    a {
+      color: #F6CA25;
+    }
+  }
+}
+
+.btn-primary {
+  background-color: #007684;
+  border: none;
+}
+
+.btn-primary:hover {
+  background-color: #009CAC;
+}
+
 /* typography */
 
 h1, h2, h3, h4, h5, h6 {
@@ -99,4 +126,36 @@ footer ul {
 footer ul li {
   float: left;
   margin-left: 15px;
+}
+
+/* forms */
+
+.login_container {
+  width: 65%;
+  margin: 0 auto;
+}
+
+input, textarea, select, .uneditable-input {
+  border: 1px solid #bbb;
+  width: 100%;
+  margin-bottom: 15px;
+}
+
+input {
+  height: auto !important;
+}
+
+#error_explanation {
+  color: red;
+  ul {
+    color: red;
+    margin: 0 0 30px 0;
+  }
+}
+
+.field_with_errors {
+  @extend .has-error;
+  .form-control {
+    color: $state-danger-text;
+  }
 }
