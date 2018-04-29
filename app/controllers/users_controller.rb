@@ -25,16 +25,15 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     if @user.update_attributes(user_params)
       flash[:success] = "All done!"
-      render 'edit'
+      redirect_to user_path
     else
-      flash[:fail] = "Something went wrong"
       render 'edit'
     end
   end
 
   def check_user
     @user = User.find(params[:id])
-    redirect_to(root_url) unless @user == current_user
+    redirect_to(current_user) unless @user == current_user
   end
 
   def check_login
