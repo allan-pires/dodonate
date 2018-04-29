@@ -2,15 +2,11 @@
 <div class="center">
   <%= image_tag("dodonate.jpg", alt: "DoDonate logo") %>
   
-  <div class="jumbotron">
-    <h1>Welcome to the DoDonate</h1>
 
-    <h2>
-      DoDonate is a web application that helps people who want to donate something to find where they can donate it.
-    </h2>
+  <% if logged_in? %>
 
-    <%= link_to "Sign up now!", '/signup', class: "btn btn-lg btn-primary" %>
-    <h3>Already have an account? <%= link_to "Click here to log in", '/login' %></h3>
-  </div>
+  <% else %>
+    <%= render 'partials/welcome' %>
+  <% end %>
   
 </div>
