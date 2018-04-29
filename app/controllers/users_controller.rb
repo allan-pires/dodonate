@@ -1,7 +1,6 @@
 class UsersController < ApplicationController
 
   before_action :check_login, only: [:edit, :update]
-  before_action :check_user,   only: [:edit, :update]
 
   def new
   	@user = User.new
@@ -10,22 +9,22 @@ class UsersController < ApplicationController
   def create
   	@user = User.new(user_params)
     if @user.save
-	    flash[:success] = "Hey! it's nice to have you here"
-      redirect_to @user
+	    flash[:success] = "Account created! Please log in"
+      redirect_to '/login'
     else
       render 'new'
     end
   end
 
   def edit
-    @user = User.find(params[:id])
+    @user = current_user
   end
 
   def update
-    @user = User.find(params[:id])
+    @user = current_user
     if @user.update_attributes(user_params)
       flash[:success] = "All done!"
-      redirect_to user_path
+      redirect_to '/profile'
     else
       render 'edit'
     end
@@ -39,7 +38,7 @@ class UsersController < ApplicationController
   def check_login
     unless logged_in?
       flash[:danger] = "Please log in."
-      redirect_to login_url
+      redirect_to '/login'
     end
   end
 
