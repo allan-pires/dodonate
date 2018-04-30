@@ -6,13 +6,16 @@ Rails.application.routes.draw do
   get '/signup', 		    to: 'users#new'
   get '/profile/edit', 	to: 'users#edit'
   get '/profile', 		  to: 'users#show'
+  get '/users',         to: 'users#new'
   
   get '/login', 		    to: 'sessions#new'
   post '/login', 		    to: 'sessions#create'
   delete '/logout', 	  to: 'sessions#destroy'
 
   get '/item/donate',   to: 'items#new'
-  
+  get '/items/edit',    to: 'items#edit'
+  get '/items',         to: 'items#show'
+
   resources :users
   resources :items
 end

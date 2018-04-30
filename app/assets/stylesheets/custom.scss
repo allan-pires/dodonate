@@ -190,3 +190,22 @@ input {
 .row {
   margin-top: 15px;
 }
+
+.blue {
+  color: lightslategrey ;
+  text-decoration: none;
+
+  :hover {
+    color: dodgerblue;
+    text-decoration: none;
+  }
+
+}
+
+.red {
+  color: lightslategrey;
+
+  :hover {
+    color: crimson;
+  }
+}

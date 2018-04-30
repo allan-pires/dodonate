@@ -16,20 +16,48 @@ class ItemsController < ApplicationController
   end
 
   def edit
-    @item = Item.find(params[:id])
+    check_user
+    @item = find_item
   end
 
   def update
-    @item = Item.find(params[:id])
+    @item = find_item
     if @item.update_attributes(item_params)
       flash[:success] = "All done!"
-      redirect_to profile_path
+      redirect_to items_path
     else
       render 'edit'
     end
   end
 
+  def destroy
+    check_user
+    @item = find_item
+    if @item.user_id = current_user.id
+      @item.destroy
+      flash[:success] = "Item deleted!"
+      redirect_to items_path
+    end
+  end
+
   private 
+
+  def find_item
+    begin
+      Item.find(params[:id])
+    rescue
+      flash[:danger] = "Something went wrong, sorry!"
+      render_to items_path
+    end
+  end
+
+  def check_user
+    item = find_item
+    if item.user_id != current_user.id
+      flash[:danger] = "Hey, don't try that!"
+      redirect_to items_path
+    end
+  end
 
   def item_params
     params.require(:item).permit(:name, :description, :quantity)
