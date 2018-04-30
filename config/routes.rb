@@ -12,7 +12,6 @@ Rails.application.routes.draw do
   delete '/logout', 	  to: 'sessions#destroy'
 
   get '/item/donate',   to: 'items#new'
-  get '/item/edit',     to: 'items#edit'
   
   resources :users
   resources :items

@@ -10,7 +10,7 @@ class UsersController < ApplicationController
   	@user = User.new(user_params)
     if @user.save
 	    flash[:success] = "Account created! Please log in"
-      redirect_to '/login'
+      redirect_to login_path
     else
       render 'new'
     end
@@ -24,7 +24,7 @@ class UsersController < ApplicationController
     @user = current_user
     if @user.update_attributes(user_params)
       flash[:success] = "All done!"
-      redirect_to '/profile'
+      redirect_to profile_path
     else
       render 'edit'
     end
@@ -44,7 +44,7 @@ class UsersController < ApplicationController
   def check_login
     unless logged_in?
       flash[:danger] = "Please log in."
-      redirect_to '/login'
+      redirect_to login_path
     end
   end
 
