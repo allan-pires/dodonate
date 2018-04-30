@@ -3,9 +3,9 @@
   <%#= image_tag("dodonate.jpg", alt: "DoDonate logo") %>
 
   <% if logged_in? %>
-    <%= render 'partials/dashboard' %>
+    <%= render 'static_pages/partials/dashboard' %>
   <% else %>
-    <%= render 'partials/welcome' %>
+    <%= render 'static_pages/partials/welcome' %>
   <% end %>
   
 </div>

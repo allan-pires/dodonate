@@ -1,0 +1,24 @@
+<% provide(:title, 'Give') %>
+<% provide(:button_text, 'Register item for donation!') %>
+
+<div class="login_container row">
+  <h1>Donate</h1>
+
+  <div class="col-md-6 col-md-offset-3">
+    <%= form_for(@item) do |f| %>
+      <%= render 'shared/error_messages', object: @item %>
+
+      <%= f.label :name %>
+      <%= f.text_field :name, class: 'form-control' %>
+
+      <%= f.label :description %>
+      <%= f.text_area :description, class: 'form-control' %>
+
+      <%= f.label :quantity %>
+      <%= f.number_field :quantity, class: 'form-control' %>
+
+      <%= f.submit yield(:button_text), class: "btn btn-primary" %>
+    <% end %>
+  </div>
+
+</div>
