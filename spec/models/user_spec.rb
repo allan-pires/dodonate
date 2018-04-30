@@ -1,18 +1,43 @@
 require "spec_helper"
 
 describe User do
-  let (:user) { User.new(name: "Adalberto", email: "adalberto@gmail.com", password: "minhasenha") }
+  let (:user) { create(:valid_user) }
 
   describe ".valid?" do
-  	context "with valid information" do
+  	
+    context "with valid information" do
       it { expect(user.valid?).to be_truthy }
     end
 
-    context "with empty email" do
-      before do
-        user.email = ""
+    context "without name" do
+      before do 
+        user.name = nil 
+      end
+      
+      it { expect(user.valid?).to be_falsey }
+    end
+
+    context "without email" do
+      before do 
+        user.email = nil
       end
 
+      it { expect(user.valid?).to be_falsey }
+    end
+
+    context "without password" do
+      before do 
+        user.password = nil
+      end
+      
+      it { expect(user.valid?).to be_falsey }
+    end
+
+    context "with short password" do
+      before do 
+        user.password = "abc" 
+      end
+      
       it { expect(user.valid?).to be_falsey }
     end
 
