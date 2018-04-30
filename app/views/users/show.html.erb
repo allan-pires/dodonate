@@ -1,6 +1,31 @@
 <% provide(:title, 'Profile') %>
-<h1>My profile</h1>
 
-<p><b>Name:</b> <%= current_user.name %> </p>
-<p><b>Email:</b> <%= current_user.email %> </p>
-<%= link_to 'Edit profile', '/profile/edit' %>
+<div class="container">
+  <h1>My profile</h1>
+
+  <div class="row">
+    <div class="col-md-6">
+      <div class="jumbotron">
+        <h2>User info</h2>
+        <div class="subtext">
+            <p><b>Name:</b> <%= current_user.name %> </p>
+            <p><b>Email:</b> <%= current_user.email %> </p>
+        </div>
+        <p><%= link_to 'Edit profile', '/profile/edit' %></p>
+
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="jumbotron">
+        <h2>Items for donation</h2>
+        <div class="subtext">
+            <ul>
+              <% current_user.items.each do |item| %>
+                <li><%= link_to "#{item.name}", item_edit_path %></li>
+              <% end %>
+            </ul>
+        </div>
+      </div>
+    </div>
+  </div>  
+</div>  

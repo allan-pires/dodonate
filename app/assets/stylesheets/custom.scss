@@ -70,21 +70,25 @@ h1 {
   font-size: 3em;
   letter-spacing: -2px;
   margin-bottom: 30px;
-  text-align: center;
 }
 
 h2 {
-  font-size: 1.2em;
+  font-size: 2em;
+  letter-spacing: -2px;
   margin-bottom: 30px;
-  text-align: center;
-  font-weight: normal;
-  color: #777;
 }
 
 h3 {
   font-size: 1em; 
   color: #777;
   font-weight: normal;
+}
+
+.subtext {
+  font-size: 1.2em;
+  margin-bottom: 30px;
+  font-weight: normal;
+  color: #777;
 }
 
 p {
@@ -146,6 +150,10 @@ footer ul li {
 .login_container {
   width: 65%;
   margin: 0 auto;
+
+  h1 {
+    text-align: center;
+  }
 }
 
 input, textarea, select, .uneditable-input {
@@ -177,4 +185,8 @@ input {
 .alert {
   text-align: center;
   margin: auto;
+}
+
+.row {
+  margin-top: 15px;
 }
