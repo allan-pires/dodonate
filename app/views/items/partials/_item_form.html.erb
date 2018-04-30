@@ -4,6 +4,9 @@
   <%= f.label :name %>
   <%= f.text_field :name, class: 'form-control' %>
 
+  <%= f.label :category %>
+  <%= f.select :item_category_id, ItemCategory.get_all, class: 'form-control' %>
+
   <%= f.label :description %>
   <%= f.text_area :description, class: 'form-control' %>
 
