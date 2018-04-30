@@ -1,5 +1,9 @@
 require 'rails_helper'
 
-RSpec.describe ItemCategory, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+describe ItemCategory do
+  describe ".get_all" do
+    context "with valid information" do
+        
+    end
+  end
 end
