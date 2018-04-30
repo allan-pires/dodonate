@@ -10,57 +10,43 @@ describe User do
     end
 
     context "without name" do
-      before do 
-        user.name = nil 
-      end
-      
+      before { user.name = nil }      
+
       it { expect(user.valid?).to be_falsey }
     end
 
     context "without email" do
-      before do 
-        user.email = nil
-      end
-
+      before { user.email = nil }
+      
       it { expect(user.valid?).to be_falsey }
     end
 
     context "without password" do
-      before do 
-        user.password = nil
-      end
+      before { user.password = nil }      
       
       it { expect(user.valid?).to be_falsey }
     end
 
     context "with short password" do
-      before do 
-        user.password = "abc" 
-      end
+      before { user.password = "abc" }
       
       it { expect(user.valid?).to be_falsey }
     end
 
     context "with email starting with symbol" do
-      before do
-        user.email = "$hue@gmail.com"
-      end
-
+      before { user.email = "$hue@gmail.com" }
+      
       it { expect(user.valid?).to be_falsey }
     end
 
     context "with email without @" do
-      before do
-        user.email = "huegmail.com"
-      end
+      before { user.email = "huegmail.com" }
 
       it { expect(user.valid?).to be_falsey }
     end
 
     context "with email without .com or .anything" do
-      before do
-        user.email = "hue@@gmail"
-      end
+      before { user.email = "hue@@gmail" }
 
       it { expect(user.valid?).to be_falsey }
     end

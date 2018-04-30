@@ -10,37 +10,32 @@ describe Item do
     end
 
     context "without name" do
-      before do 
-        item.name = nil 
-      end
+      before { item.name = nil }
+
       it { expect(item.valid?).to be_falsey }
     end
 
     context "without description" do
-      before do 
-        item.description = nil 
-      end
+      before { item.description = nil }
+
       it { expect(item.valid?).to be_truthy }
     end
 
     context "without quantity" do
-      before do 
-        item.name = nil 
-      end
+      before { item.quantity = nil }
+
       it { expect(item.valid?).to be_falsey }
     end
 
     context "without category" do
-      before do 
-        item.item_category = nil 
-      end
+      before { item.item_category = nil }
+
       it { expect(item.valid?).to be_falsey }
     end
 
     context "without owner (user)" do
-      before do 
-        item.user = nil 
-      end
+      before { item.user = nil }
+
       it { expect(item.valid?).to be_falsey }
     end
 
