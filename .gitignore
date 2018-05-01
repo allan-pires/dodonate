@@ -26,4 +26,8 @@
 /config/master.key
 
 .DS_Store
-coverage
+/coverage/assets
+/coverage/*.html
+/coverage/*.json
+/coverage/*.json.lock
+
