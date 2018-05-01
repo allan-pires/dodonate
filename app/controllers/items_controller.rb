@@ -1,4 +1,6 @@
 class ItemsController < ApplicationController
+
+  before_action :check_permission, only: [:edit, :update, :destroy]
   
   def new
     @item = Item.new
@@ -16,12 +18,11 @@ class ItemsController < ApplicationController
   end
 
   def edit
-    check_user
-    @item = find_item
+    @item = find_item(params[:id])
   end
 
   def update
-    @item = find_item
+    @item = find_item(params[:id])
     if @item.update_attributes(item_params)
       flash[:success] = "All done!"
       redirect_to items_path
@@ -31,8 +32,8 @@ class ItemsController < ApplicationController
   end
 
   def destroy
-    check_user
-    @item = find_item
+    check_ownership
+    @item = find_item(params[:id])
     if @item.user_id = current_user.id
       @item.destroy
       flash[:success] = "Item deleted!"
@@ -42,25 +43,34 @@ class ItemsController < ApplicationController
 
   private 
 
-  def find_item
-    begin
-      Item.find(params[:id])
-    rescue
-      flash[:danger] = "Something went wrong, sorry!"
-      render_to items_path
-    end
-  end
-
-  def check_user
-    item = find_item
-    if item.user_id != current_user.id
-      flash[:danger] = "Hey, don't try that!"
-      redirect_to items_path
-    end
-  end
-
   def item_params
     params.require(:item).permit(:name, :item_category_id, :description, :quantity)
+  end
+
+  def check_permission
+    if !check_ownership(params[:id])
+      logger.error("Permission denied!")
+      error_redirect
+    end
+  end
+
+  def check_ownership(item_id)
+    item = find_item(item_id)
+    item.user_id == current_user.id
+  end
+
+  def find_item(id)
+    begin
+      Item.find(id)
+    rescue StandardError => e
+      logger.error(e.message)
+      error_redirect
+    end
+  end
+
+  def error_redirect
+      flash[:danger] = "Something went wrong, sorry!"
+      redirect_to items_path
   end
 
 end
