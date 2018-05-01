@@ -1,7 +1,6 @@
 FactoryBot.define do
 
   factory :valid_item, class: Item do
-    id 1
     name "Pokeball"
     description "Very basic pokeball, fails most of the time"
     quantity 10
