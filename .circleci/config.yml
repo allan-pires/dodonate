@@ -15,8 +15,8 @@ jobs:
       # - image: circleci/postgres:9.4
        - image: circleci/postgres:9.6.2-alpine
          environment:
-            DB: dodonation
-            DB_USER: root
+            POSTGRES_USER: postgres
+            POSTGRES_DB: dodonation_test
 
     working_directory: ~/repo
 
