@@ -1,5 +1,5 @@
 class ItemsController < ApplicationController
-
+  include ItemsHelper
   before_action :check_permission, only: [:edit, :update, :destroy]
 
   def index
@@ -16,11 +16,13 @@ class ItemsController < ApplicationController
   def create
     @item = Item.new(item_params)
     @item.user_id = current_user.id
-    if @item.save
-      flash[:success] = "Item added to donation!"
-      redirect_to home_path
-    else
-      render 'new'
+    logger.info("Creating new item with [params] = #{item_params.inspect} ")
+
+    begin
+      @item.save
+      success_redirect
+    rescue StandardError => e
+      log_error_and_redirect(e.message)
     end
   end
 
@@ -29,22 +31,26 @@ class ItemsController < ApplicationController
   end
 
   def update
+    logger.info("Updating item with [params] = #{item_params.inspect} ")
     @item = find_item(params[:id])
-    if @item.update_attributes(item_params)
-      flash[:success] = "All done!"
-      redirect_to items_path
-    else
-      render 'edit'
+
+    begin
+      @item.update_attributes(item_params)
+      success_redirect
+    rescue StandardError => e
+      log_error_and_redirect(e.message)
     end
   end
 
   def destroy
-    check_ownership
+    logger.info("Deleting item with [id] = [#{params[:id]}]")
     @item = find_item(params[:id])
-    if @item.user_id = current_user.id
-      @item.destroy
-      flash[:success] = "Item deleted!"
-      redirect_to items_path
+    
+    begin
+      @item.destroy      
+      success_redirect
+    rescue StandardError => e
+      log_error_and_redirect(e.message)
     end
   end
 
@@ -52,32 +58,6 @@ class ItemsController < ApplicationController
 
   def item_params
     params.require(:item).permit(:name, :item_category_id, :description, :quantity)
-  end
-
-  def check_permission
-    if !check_ownership(params[:id])
-      logger.error("Permission denied!")
-      error_redirect
-    end
-  end
-
-  def check_ownership(item_id)
-    item = find_item(item_id)
-    item.user_id == current_user.id
-  end
-
-  def find_item(id)
-    begin
-      Item.find(id)
-    rescue StandardError => e
-      logger.error(e.message)
-      error_redirect
-    end
-  end
-
-  def error_redirect
-      flash[:danger] = "Something went wrong, sorry!"
-      redirect_to items_path
   end
 
 end

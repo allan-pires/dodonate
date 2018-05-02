@@ -16,10 +16,10 @@ describe ItemsController do
       before { get :new }
 
       it { expect(response.status).to eq(200) }
-      it { expect(response).to render_template('new') }
+      it { expect(response).to render_template('new')}
     end
 
-    context "POST creates item and redirects to home" do
+    context "POST creates item and redirects to items#index" do
       before do 
         post :create, params: 
           { item: { name: "Masterball", description: "Very rare", quantity: 1, item_category_id: item_category.id } } 
@@ -27,8 +27,8 @@ describe ItemsController do
       
       it { expect(response.status).to eq(302) }
       it { expect(flash[:success]).to be_present }
-      it { expect(flash[:success]).to eq("Item added to donation!") }
-      it { expect(response).to redirect_to('/home') }
+      it { expect(flash[:success]).to eq("All done!") }
+      it { expect(response).to redirect_to(items_path) }
       it { expect(Item.last.name).to eq("Masterball")}
       it { expect(Item.last.user_id).to eq(user.id)}
     end
@@ -39,7 +39,7 @@ describe ItemsController do
           { item: { name: "Masterball", description: "Very rare", quantity: 1 } } 
       end
       
-      it { expect(response).to render_template('new') }
+      it { expect(response).to redirect_to(items_path) }
     end
   end
 
