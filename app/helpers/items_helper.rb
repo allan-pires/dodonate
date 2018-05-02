@@ -9,9 +9,9 @@ module ItemsHelper
   end
 
   def success_redirect
-      logger.info("Operation successful")
-      flash[:success] = "All done!"
-      redirect_to items_path
+    logger.info("Operation successful")
+    flash[:success] = "All done!"
+    redirect_to items_path
   end
 
   def log_error_and_redirect(error_message)
@@ -20,8 +20,8 @@ module ItemsHelper
   end
 
   def error_redirect
-      flash[:danger] = "Something went wrong, sorry!"
-      redirect_to items_path
+    flash[:danger] = "Something went wrong, sorry!"
+    redirect_to items_path
   end
 
   def check_permission
