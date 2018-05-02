@@ -13,8 +13,7 @@ After cloning the project to your machine, navegate to dodonate directory and ru
 
 ```
 docker-compose build
-docker-compose exec web rake db:create
-docker-compose exec web rake db:migrate
+docker-compose exec web rake db:setup
 ```
 
 ## How to run
