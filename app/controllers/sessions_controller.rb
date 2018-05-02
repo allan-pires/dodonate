@@ -6,8 +6,9 @@ class SessionsController < ApplicationController
   def create
     logger.info("Creating new session")
     user = User.find_by_email(params[:session][:email].downcase)
-    if user && user.authenticate(params[:session][:password])
-    logger.info("Logging user [id = #{user.id}, name = #{user.name}]")
+    
+    if authentication_successful(user)
+      logger.info("Logging user [id = #{user.id}, name = #{user.name}]")
       log_in user
       redirect_to home_path
     else
@@ -21,6 +22,12 @@ class SessionsController < ApplicationController
     logger.info("Logging out user [id = #{current_user.id}, name = #{current_user.name}] ")
     log_out
     redirect_to home_path
+  end
+
+  private
+
+  def authentication_successful(user)
+    user && user.authenticate(params[:session][:password])
   end
 
 end
