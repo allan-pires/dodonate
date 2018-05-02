@@ -1,0 +1,32 @@
+<% provide(:title, 'Items') %>
+
+<div class="container">
+  <h1>Items for donation</h1>
+
+  <div class="row">
+    <div class="jumbotron">
+      <div class="subtext">
+        <h2>Own items</h2>
+        <% Item.owner(current_user).order("id asc").each do |item| %>
+          <p>
+            ( <%= item.quantity %> ) <%= item.name %> 
+            <%= link_to fa_icon('pencil'), edit_item_path(item), class: 'blue' %>  
+            <%= link_to fa_icon('trash'), item_path(item.id), class: 'red', data: { confirm: 'Are you sure you?' }, method: :delete %>
+          </p>
+        <% end %>
+      </div>
+      <hr>
+      <div class="subtext">
+        <h2>All items</h2>
+        <% Item.all.order("id asc").each do |item| %>
+          <p>
+            <%= link_to "( #{item.quantity} ) #{item.name}", item_path(item.id)  %>
+          </p>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>  
+
+<%= button_to "Back", { action: "home", controller: "static_pages" }, method: :get, class: "btn btn-primary btn-small" %>
+

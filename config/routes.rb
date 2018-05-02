@@ -14,7 +14,6 @@ Rails.application.routes.draw do
 
   get '/item/donate',   to: 'items#new'
   get '/items/edit',    to: 'items#edit'
-  get '/items',         to: 'items#show'
 
   resources :users
   resources :items

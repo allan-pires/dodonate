@@ -1,7 +1,7 @@
 <% provide(:title, 'Profile') %>
 
 <div class="container">
-  <h1>My profile</h1>
+  <h1>My profile </h1>
 
   <div class="row">
     <div class="jumbotron">
@@ -9,7 +9,7 @@
         <p><b>Name:</b> <%= current_user.name %> </p>
         <p><b>Email:</b> <%= current_user.email %> </p>
       </div>
+      <p><%= link_to 'Edit profile', profile_edit_path %></p>
     </div>
   </div>
-  <p><%= link_to 'Edit profile', profile_edit_path %></p>
 </div>  

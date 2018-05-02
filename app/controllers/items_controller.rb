@@ -1,6 +1,13 @@
 class ItemsController < ApplicationController
 
   before_action :check_permission, only: [:edit, :update, :destroy]
+
+  def index
+  end
+
+  def show
+    @item = find_item(params[:id])
+  end
   
   def new
     @item = Item.new

@@ -2,13 +2,13 @@
   <div class="container">
     <nav>
       <ul class="nav navbar-nav navbar-left">
+        <!-- <li><#%= image_tag("dodo.png", class: "logo") %></li> -->
         <li>DoDonate</li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li><%= link_to "Home", home_path %></li>
         <li><%= link_to "About", about_path %></li>
         <% if logged_in? %>
-          <li><%= link_to "Items", items_path %></li>
           <li><%= link_to "Profile", profile_path %></li>
           <li><%= link_to "Log out", logout_path, method: :delete %></li>
 		    <% else %>
