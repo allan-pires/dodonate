@@ -34,7 +34,7 @@ describe UsersController do
       
       it { expect(response.status).to eq(302) }
       it { expect(flash[:success]).to be_present }
-      it { expect(flash[:success]).to eq("Account created! Please log in") }
+      it { expect(flash[:success]).to eq("All done!") }
       it { expect(response).to redirect_to('/login') }
       it { expect(User.last.name).to eq("Batmobile")}
       it { expect(User.last.email).to eq("batmobile@rocketleague.com")}

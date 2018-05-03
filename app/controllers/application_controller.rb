@@ -2,9 +2,6 @@ class ApplicationController < ActionController::Base
   include SessionsHelper
   protect_from_forgery with: :exception
 
-  OPERATION_SUCCESS = "Operation successful"
-  OPERATION_FAILED = "Operation failed"
-
   private 
   
   def check_login
@@ -15,13 +12,13 @@ class ApplicationController < ActionController::Base
   end
 
   def success_feedback
-    logger.info(OPERATION_SUCCESS)
+    logger.info "Operation successful"
     flash[:success] = "All done!"
   end
 
   def failure_feedback
-    logger.error(OPERATION_FAILED)
+    logger.error "Operation failed"
     flash[:danger] = "Something went wrong, sorry!"
   end
-  
+
 end
