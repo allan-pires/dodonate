@@ -1,7 +1,5 @@
 class ApplicationController < ActionController::Base
   include SessionsHelper
-  
-  before_action :check_login, only: [:edit, :update, :destroy]
   protect_from_forgery with: :exception
 
   private 

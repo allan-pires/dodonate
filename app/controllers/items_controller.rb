@@ -1,5 +1,6 @@
 class ItemsController < ApplicationController
   include ItemsHelper
+  before_action :check_login
   before_action :check_permission, only: [:edit, :update, :destroy]
 
   def index
