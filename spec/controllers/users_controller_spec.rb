@@ -40,6 +40,17 @@ describe UsersController do
       it { expect(User.last.email).to eq("batmobile@rocketleague.com")}
     end
 
+    context "POST fails to create user with invalid email and redirect to new" do
+      before do 
+        post :create, params: 
+          { user: { name: "Batmobile", email: "batmobile@@@rocketleague.com", password: "greatpass!" } } 
+      end
+      
+      it { expect(response.status).to eq(200) }
+      it { expect(flash[:danger]).to be_present }
+      it { expect(flash[:danger]).to eq("Something went wrong, sorry!") }
+      it { expect(response).to render_template('new') }
+    end
   end
 
   describe "#edit" do
@@ -81,6 +92,15 @@ describe UsersController do
       it { expect(response).to redirect_to('/profile') }
       it { expect(user.name).to eq("Dominus") }
       it { expect(user.email).to eq("dominus@rocketleague.com") }
+    end
+
+    context "POST fails to update user with invalid password" do
+      before { post :update, params: { id: user.id, user: { name: "Dominus", password: "small"} } }
+      
+      it { expect(response.status).to eq(200) }
+      it { expect(flash[:danger]).to be_present }
+      it { expect(flash[:danger]).to eq("Something went wrong, sorry!") }
+      it { expect(response).to render_template('edit') }
     end
   end
 
