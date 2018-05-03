@@ -7,15 +7,12 @@ class UsersController < ApplicationController
 
   def create
   	@user = User.new(user_params)
-    logger.info("Creating new user with [params] = #{user_params.inspect} ")
 
-    begin 
-      @user.save
-      logger.info("User succesfully created")
-	    flash[:success] = "Account created! Please log in"
+    if @user.save
+      success_feedback
       redirect_to login_path
-    rescue StandardError => e
-      logger.error(e.message)
+    else
+      failure_feedback
       render 'new'
     end
   end
@@ -26,15 +23,12 @@ class UsersController < ApplicationController
 
   def update
     @user = current_user
-    logger.info("Updating user with [params] = #{user_params.inspect}")
 
-    begin
-      @user.update_attributes(user_params)
-      logger.info("User succesfully updated")
-      flash[:success] = "All done!"
+    if @user.update_attributes(user_params)
+      success_feedback
       redirect_to profile_path
-    rescue StandardError => e
-      logger.error(e.message)
+    else
+      failure_feedback
       render 'edit'
     end
   end

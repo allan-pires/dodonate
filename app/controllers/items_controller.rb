@@ -17,13 +17,11 @@ class ItemsController < ApplicationController
   def create
     @item = Item.new(item_params)
     @item.user_id = current_user.id
-    logger.info("Creating new item with [params] = #{item_params.inspect} ")
 
-    begin
-      @item.save
+    if @item.save
       success_redirect
-    rescue StandardError => e
-      log_error_and_redirect(e.message)
+    else
+      error_redirect
     end
   end
 
@@ -32,26 +30,22 @@ class ItemsController < ApplicationController
   end
 
   def update
-    logger.info("Updating item with [params] = #{item_params.inspect} ")
     @item = find_item(params[:id])
 
-    begin
-      @item.update_attributes(item_params)
+    if @item.update_attributes(item_params)
       success_redirect
-    rescue StandardError => e
-      log_error_and_redirect(e.message)
+    else
+      error_redirect
     end
   end
 
   def destroy
-    logger.info("Deleting item with [id] = [#{params[:id]}]")
     @item = find_item(params[:id])
     
-    begin
-      @item.destroy      
+    if @item.destroy      
       success_redirect
-    rescue StandardError => e
-      log_error_and_redirect(e.message)
+    else
+      error_redirect
     end
   end
 
@@ -65,19 +59,18 @@ class ItemsController < ApplicationController
     begin
       Item.find(id)
     rescue StandardError => e
-      log_error_and_redirect(e.message)
+      logger.error(e.message)
+      error_redirect
     end
   end
 
   def success_redirect
-    logger.info("Operation successful")
-    flash[:success] = "All done!"
+    success_feedback
     redirect_to items_path
   end
 
-  def log_error_and_redirect(error_message)
-    logger.error(error_message)
-    flash[:danger] = "Something went wrong, sorry!"
+  def error_redirect
+    failure_feedback
     redirect_to items_path
   end
 
