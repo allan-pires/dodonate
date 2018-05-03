@@ -20,7 +20,7 @@ class ItemsController < ApplicationController
       flash[:success] = "Item added to donation!"
       redirect_to items_path
     else
-      flash[:danger] = "Failed to create item!"
+      flash[:fail] = "Failed to create item!"
       render 'new'
     end
   end
@@ -35,18 +35,17 @@ class ItemsController < ApplicationController
       flash[:success] = "Item updated!"
       redirect_to items_path
     else
-      flash[:danger] = "Failed to update item!"
+      flash[:fail] = "Failed to update item!"
       render 'edit'
     end
   end
 
   def destroy
-    puts "------------current_user = #{current_user.inspect}"
     @item = Item.find(params[:id])
     if @item.destroy
       flash[:success] = "Item deleted!"
     else
-      flash[:danger] = "Failed to destroy item!"
+      flash[:fail] = "Failed to destroy item!"
     end
     
     redirect_to items_path
@@ -59,12 +58,9 @@ class ItemsController < ApplicationController
   end
 
   def check_permission
-    puts "--------------user=#{current_user.inspect}"
     item = Item.find(params[:id])
-    puts "--------------item=#{item.inspect}"
     if item && item.user_id != current_user.id
-      puts "--------------check_permission=#{Item.find(params[:id]).user_id != current_user.id}"
-      flash[:danger] = "Permission denied!"
+      flash[:fail] = "Permission denied!"
       redirect_to items_path
     end
   end

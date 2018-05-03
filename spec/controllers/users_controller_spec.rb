@@ -34,7 +34,7 @@ describe UsersController do
       
       it { expect(response.status).to eq(302) }
       it { expect(flash[:success]).to be_present }
-      it { expect(flash[:success]).to eq("All done!") }
+      it { expect(flash[:success]).to eq("Account created! Please log in") }
       it { expect(response).to redirect_to('/login') }
       it { expect(User.last.name).to eq("Batmobile")}
       it { expect(User.last.email).to eq("batmobile@rocketleague.com")}
@@ -47,8 +47,8 @@ describe UsersController do
       end
       
       it { expect(response.status).to eq(200) }
-      it { expect(flash[:danger]).to be_present }
-      it { expect(flash[:danger]).to eq("Something went wrong, sorry!") }
+      it { expect(flash[:fail]).to be_present }
+      it { expect(flash[:fail]).to eq("Failed to create new account") }
       it { expect(response).to render_template('new') }
     end
   end
@@ -88,7 +88,7 @@ describe UsersController do
 
       it { expect(response.status).to eq(302) }
       it { expect(flash[:success]).to be_present }
-      it { expect(flash[:success]).to eq("All done!") }
+      it { expect(flash[:success]).to eq("Profile updated!") }
       it { expect(response).to redirect_to('/profile') }
     end
 
@@ -96,8 +96,8 @@ describe UsersController do
       before { post :update, params: { id: user.id, user: { password: "small"} } }
       
       it { expect(response.status).to eq(200) }
-      it { expect(flash[:danger]).to be_present }
-      it { expect(flash[:danger]).to eq("Something went wrong, sorry!") }
+      it { expect(flash[:fail]).to be_present }
+      it { expect(flash[:fail]).to eq("Failed to update profile") }
       it { expect(response).to render_template('edit') }
     end
   end
