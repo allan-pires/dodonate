@@ -1,6 +1,5 @@
 class ItemsController < ApplicationController
-
-  before_action :check_permission, only: [:update, :destroy]
+  before_action :check_permission, only: [:edit, :update, :destroy]
 
   def index
   end
@@ -20,7 +19,7 @@ class ItemsController < ApplicationController
       flash[:success] = "Item added to donation!"
       redirect_to items_path
     else
-      flash[:fail] = "Failed to create item!"
+      flash[:error] = "Failed to create item!"
       render 'new'
     end
   end
@@ -35,7 +34,7 @@ class ItemsController < ApplicationController
       flash[:success] = "Item updated!"
       redirect_to items_path
     else
-      flash[:fail] = "Failed to update item!"
+      flash[:error] = "Failed to update item!"
       render 'edit'
     end
   end
@@ -45,7 +44,7 @@ class ItemsController < ApplicationController
     if @item.destroy
       flash[:success] = "Item deleted!"
     else
-      flash[:fail] = "Failed to destroy item!"
+      flash[:error] = "Failed to destroy item!"
     end
     
     redirect_to items_path
@@ -60,7 +59,7 @@ class ItemsController < ApplicationController
   def check_permission
     item = Item.find(params[:id])
     if item && item.user_id != current_user.id
-      flash[:fail] = "Permission denied!"
+      flash[:error] = "Permission denied!"
       redirect_to items_path
     end
   end

@@ -47,8 +47,8 @@ describe UsersController do
       end
       
       it { expect(response.status).to eq(200) }
-      it { expect(flash[:fail]).to be_present }
-      it { expect(flash[:fail]).to eq("Failed to create new account") }
+      it { expect(flash[:error]).to be_present }
+      it { expect(flash[:error]).to eq("Failed to create new account") }
       it { expect(response).to render_template('new') }
     end
   end
@@ -96,8 +96,8 @@ describe UsersController do
       before { post :update, params: { id: user.id, user: { password: "small"} } }
       
       it { expect(response.status).to eq(200) }
-      it { expect(flash[:fail]).to be_present }
-      it { expect(flash[:fail]).to eq("Failed to update profile") }
+      it { expect(flash[:error]).to be_present }
+      it { expect(flash[:error]).to eq("Failed to update profile") }
       it { expect(response).to render_template('edit') }
     end
   end

@@ -13,7 +13,7 @@ class SessionsController < ApplicationController
       redirect_to home_path
     else
       logger.info("Authentication failed")
-      flash[:danger] = 'Invalid email or password :('
+      flash[:error] = 'Invalid email or password :('
       render 'new'
     end
   end
@@ -25,6 +25,14 @@ class SessionsController < ApplicationController
   end
 
   private
+
+  def log_in(user)
+    session[:user_id] = user.id
+  end
+
+  def log_out
+    session.delete(:user_id)
+  end
 
   def authentication_successful(user)
     user && user.authenticate(params[:session][:password])

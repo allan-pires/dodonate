@@ -1,7 +1,5 @@
 class UsersController < ApplicationController
 
-  before_action :check_login, only: [:edit, :update]
-
   def new
     @user = User.new
   end
@@ -12,7 +10,7 @@ class UsersController < ApplicationController
       flash[:success] = "Account created! Please log in"
       redirect_to login_path
     else
-      flash[:fail] = "Failed to create new account"
+      flash[:error] = "Failed to create new account"
       render 'new'
     end
   end
@@ -27,7 +25,7 @@ class UsersController < ApplicationController
       flash[:success] = "Profile updated!"
       redirect_to profile_path
     else
-      flash[:fail] = "Failed to update profile"
+      flash[:error] = "Failed to update profile"
       render 'edit'
     end
   end
