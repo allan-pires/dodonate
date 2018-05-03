@@ -1,13 +1,12 @@
 class ItemsController < ApplicationController
-  include ItemsHelper
-  before_action :check_login
-  before_action :check_permission, only: [:edit, :update, :destroy]
+
+  before_action :check_permission, only: [:update, :destroy]
 
   def index
   end
 
   def show
-    @item = find_item(params[:id])
+    @item = Item.find(params[:id])
   end
   
   def new
@@ -17,36 +16,40 @@ class ItemsController < ApplicationController
   def create
     @item = Item.new(item_params)
     @item.user_id = current_user.id
-
     if @item.save
-      success_redirect
+      flash[:success] = "Item added to donation!"
+      redirect_to items_path
     else
-      error_redirect
+      flash[:danger] = "Failed to create item!"
+      render 'new'
     end
   end
 
   def edit
-    @item = find_item(params[:id])
+    @item = Item.find(params[:id])
   end
 
   def update
-    @item = find_item(params[:id])
-
+    @item = Item.find(params[:id])
     if @item.update_attributes(item_params)
-      success_redirect
+      flash[:success] = "Item updated!"
+      redirect_to items_path
     else
-      error_redirect
+      flash[:danger] = "Failed to update item!"
+      render 'edit'
     end
   end
 
   def destroy
-    @item = find_item(params[:id])
-    
-    if @item.destroy      
-      success_redirect
+    puts "------------current_user = #{current_user.inspect}"
+    @item = Item.find(params[:id])
+    if @item.destroy
+      flash[:success] = "Item deleted!"
     else
-      error_redirect
+      flash[:danger] = "Failed to destroy item!"
     end
+    
+    redirect_to items_path
   end
 
   private 
@@ -55,23 +58,15 @@ class ItemsController < ApplicationController
     params.require(:item).permit(:name, :item_category_id, :description, :quantity)
   end
 
-  def find_item(id)
-    begin
-      Item.find(id)
-    rescue StandardError => e
-      logger.error(e.message)
-      error_redirect
+  def check_permission
+    puts "--------------user=#{current_user.inspect}"
+    item = Item.find(params[:id])
+    puts "--------------item=#{item.inspect}"
+    if item && item.user_id != current_user.id
+      puts "--------------check_permission=#{Item.find(params[:id]).user_id != current_user.id}"
+      flash[:danger] = "Permission denied!"
+      redirect_to items_path
     end
-  end
-
-  def success_redirect
-    success_feedback
-    redirect_to items_path
-  end
-
-  def error_redirect
-    failure_feedback
-    redirect_to items_path
   end
 
 end
