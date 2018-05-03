@@ -17,4 +17,6 @@ Rails.application.routes.draw do
 
   resources :users
   resources :items
+
+  match '*path', via: :all, to: 'static_pages#not_found'
 end
