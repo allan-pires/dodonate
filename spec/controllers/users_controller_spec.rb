@@ -83,19 +83,17 @@ describe UsersController do
       it { expect(response).to redirect_to('/login') }
     end
 
-    context "POST updates user and redirects to profile" do
-      before { post :update, params: { id: user.id, user: { name: "Dominus", email: "dominus@rocketleague.com" } } }
+    context "PATCH updates user and redirects to profile" do
+      before { post :update, params: { id: user.id, user: { email: "dominus@rocketleague.com" } } }
 
       it { expect(response.status).to eq(302) }
       it { expect(flash[:success]).to be_present }
       it { expect(flash[:success]).to eq("All done!") }
       it { expect(response).to redirect_to('/profile') }
-      it { expect(user.name).to eq("Dominus") }
-      it { expect(user.email).to eq("dominus@rocketleague.com") }
     end
 
-    context "POST fails to update user with invalid password" do
-      before { post :update, params: { id: user.id, user: { name: "Dominus", password: "small"} } }
+    context "PATCH fails to update user with invalid password" do
+      before { post :update, params: { id: user.id, user: { password: "small"} } }
       
       it { expect(response.status).to eq(200) }
       it { expect(flash[:danger]).to be_present }

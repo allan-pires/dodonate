@@ -9,25 +9,13 @@ class Item < ApplicationRecord
     length: { maximum: 255 }
   
   validates :quantity, 
-    presence: true 
+    presence: true,
+    numericality: true
 
   validates :item_category, 
     presence: true
 
   validates :user, 
     presence: true
-
-  private
-  
-  def check_ownership(item_id)
-    item = find_item(item_id)
-    item.user_id == current_user.id
-  end
-
-  def check_permission
-    if !check_ownership(params[:id])
-      error_redirect("Permission denied!")
-    end
-  end
 
 end

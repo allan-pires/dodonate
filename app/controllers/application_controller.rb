@@ -11,14 +11,4 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  def success_feedback
-    logger.info "Operation successful"
-    flash[:success] = "All done!"
-  end
-
-  def failure_feedback
-    logger.error "Operation failed"
-    flash[:danger] = "Something went wrong, sorry!"
-  end
-
 end
