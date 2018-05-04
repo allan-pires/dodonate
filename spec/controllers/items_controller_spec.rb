@@ -27,6 +27,36 @@ describe ItemsController do
     end
   end
 
+  describe "#show" do
+    context "GET render show item template" do
+      before { get :show, params: { id: item.id } }
+
+      it { expect(response.status).to eq(200) }
+      it { expect(response).to render_template('show')}
+    end
+  end
+
+  describe "#edit" do
+    context "GET render show item edit template" do
+      before { get :edit, params: { id: item.id } }
+
+      it { expect(response.status).to eq(200) }
+      it { expect(response).to render_template('edit')}
+    end
+
+    context "GET fails when user is not the owner of the item" do
+      before do
+        allow_any_instance_of(ItemsController).to receive(:current_user).and_return(another_user)
+        get :edit, params: { id: item.id }
+      end
+
+      it { expect(response.status).to eq(302) }
+      it { expect(flash[:error]).to be_present }
+      it { expect(flash[:error]).to eq("Permission denied!") }
+      it { expect(response).to redirect_to(items_path)}
+    end
+  end
+
   describe "#create" do
     context "POST creates item and redirects to items#index" do
       before do 
