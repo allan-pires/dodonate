@@ -51,9 +51,19 @@ describe ItemsController do
       end
 
       it { expect(response.status).to eq(302) }
-      it { expect(flash[:error]).to be_present }
-      it { expect(flash[:error]).to eq("Permission denied!") }
+      it { expect(flash[:danger]).to be_present }
+      it { expect(flash[:danger]).to eq("Permission denied!") }
       it { expect(response).to redirect_to(items_path)}
+    end
+
+    context "GET renders not found page when item dont exist" do
+      before do
+        allow(Item).to receive(:exists?).with(item.id.to_s).and_return(false)
+        get :edit, params: { id: item.id }
+      end
+
+      it { expect(response.status).to eq(200) }
+      it { expect(response).to render_template('static_pages/not_found')}
     end
   end
 
@@ -79,8 +89,8 @@ describe ItemsController do
       end
       
       it { expect(response.status).to eq(200) }
-      it { expect(flash[:error]).to be_present }
-      it { expect(flash[:error]).to eq("Failed to create item!") }
+      it { expect(flash[:danger]).to be_present }
+      it { expect(flash[:danger]).to eq("Failed to create item!") }
       it { expect(response).to render_template('new') }
     end
   end
@@ -99,8 +109,8 @@ describe ItemsController do
       before { patch :update, params: { id: item.id, item: { quantity: "ABC" } } }
 
       it { expect(response.status).to eq(200) }
-      it { expect(flash[:error]).to be_present }
-      it { expect(flash[:error]).to eq("Failed to update item!") }
+      it { expect(flash[:danger]).to be_present }
+      it { expect(flash[:danger]).to eq("Failed to update item!") }
       it { expect(response).to render_template('edit') }
     end
   end
@@ -122,8 +132,8 @@ describe ItemsController do
       end
 
       it { expect(response.status).to eq(302) }
-      it { expect(flash[:error]).to be_present }
-      it { expect(flash[:error]).to eq("Permission denied!") }
+      it { expect(flash[:danger]).to be_present }
+      it { expect(flash[:danger]).to eq("Permission denied!") }
       it { expect(response).to redirect_to(items_path) }
     end
 
@@ -135,8 +145,8 @@ describe ItemsController do
       end
 
       it { expect(response.status).to eq(302) }
-      it { expect(flash[:error]).to be_present }
-      it { expect(flash[:error]).to eq("Failed to destroy item!") }
+      it { expect(flash[:danger]).to be_present }
+      it { expect(flash[:danger]).to eq("Failed to destroy item!") }
       it { expect(response).to redirect_to(items_path) }
     end
   end

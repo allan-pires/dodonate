@@ -1,4 +1,5 @@
 class ItemsController < ApplicationController
+  before_action :item_exists?, only: [:show, :edit, :update, :destroy]
   before_action :check_permission, only: [:edit, :update, :destroy]
 
   def index
@@ -19,7 +20,7 @@ class ItemsController < ApplicationController
       flash[:success] = "Item added to donation!"
       redirect_to items_path
     else
-      flash[:error] = "Failed to create item!"
+      flash[:danger] = "Failed to create item!"
       render 'new'
     end
   end
@@ -34,7 +35,7 @@ class ItemsController < ApplicationController
       flash[:success] = "Item updated!"
       redirect_to items_path
     else
-      flash[:error] = "Failed to update item!"
+      flash[:danger] = "Failed to update item!"
       render 'edit'
     end
   end
@@ -44,7 +45,7 @@ class ItemsController < ApplicationController
     if @item.destroy
       flash[:success] = "Item deleted!"
     else
-      flash[:error] = "Failed to destroy item!"
+      flash[:danger] = "Failed to destroy item!"
     end
     
     redirect_to items_path
@@ -59,8 +60,14 @@ class ItemsController < ApplicationController
   def check_permission
     item = Item.find(params[:id])
     if item && item.user_id != current_user.id
-      flash[:error] = "Permission denied!"
+      flash[:danger] = "Permission denied!"
       redirect_to items_path
+    end
+  end
+
+  def item_exists?
+    unless Item.exists?(params[:id])
+      render 'static_pages/not_found'
     end
   end
 

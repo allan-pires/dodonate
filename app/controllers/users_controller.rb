@@ -10,7 +10,7 @@ class UsersController < ApplicationController
       flash[:success] = "Account created! Please log in"
       redirect_to login_path
     else
-      flash[:error] = "Failed to create new account"
+      flash[:danger] = "Failed to create new account"
       render 'new'
     end
   end
@@ -25,7 +25,7 @@ class UsersController < ApplicationController
       flash[:success] = "Profile updated!"
       redirect_to profile_path
     else
-      flash[:error] = "Failed to update profile"
+      flash[:danger] = "Failed to update profile"
       render 'edit'
     end
   end
