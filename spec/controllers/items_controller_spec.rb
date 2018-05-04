@@ -18,6 +18,15 @@ describe ItemsController do
     }
   end
 
+  describe "#index" do
+    context "GET render index item template" do
+      before { get :index }
+
+      it { expect(response.status).to eq(200) }
+      it { expect(response).to render_template('index')}
+    end
+  end
+
   describe "#new" do
     context "GET render new item template" do
       before { get :new }
