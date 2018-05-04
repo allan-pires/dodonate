@@ -126,6 +126,19 @@ describe ItemsController do
       it { expect(flash[:error]).to eq("Permission denied!") }
       it { expect(response).to redirect_to(items_path) }
     end
+
+    context "DELETE fails when user is not the owner" do
+      before do 
+        allow(Item).to receive(:find).with(item.id.to_s).and_return(item)
+        allow(item).to receive(:destroy).and_return(false)
+        delete :destroy, params: { id: item.id } 
+      end
+
+      it { expect(response.status).to eq(302) }
+      it { expect(flash[:error]).to be_present }
+      it { expect(flash[:error]).to eq("Failed to destroy item!") }
+      it { expect(response).to redirect_to(items_path) }
+    end
   end
 
 end
