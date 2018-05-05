@@ -27,4 +27,4 @@ docker-compose run web bundle exec rspec
 ```
 
 ## Disclaimer
-Illustrations by *Vecteezy.com*
+Illustration by Stevan Rodic
