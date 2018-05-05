@@ -1,4 +1,13 @@
 Rails.application.routes.draw do
+  #api
+  namespace :api do
+    namespace :v1 do
+      resources :items
+      resources :item_categories
+    end
+  end
+
+  #application
   root 'static_pages#home'
   get '/home', 			    to: 'static_pages#home'
   get '/about', 		    to: 'static_pages#about'

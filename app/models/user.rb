@@ -1,5 +1,6 @@
 class User < ApplicationRecord  
   has_many :items
+  has_secure_password
 
   before_save { self.email = email.downcase }
 
@@ -17,5 +18,4 @@ class User < ApplicationRecord
   	presence: true, 
   	length: { minimum: 6 }
 
-  has_secure_password
 end
