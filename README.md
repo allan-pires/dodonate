@@ -1,5 +1,5 @@
 # DoDonate
-![dodo](https://i.imgur.com/Qx6aIEb.jpg)
+![dodo](https://i.imgur.com/s5o07Bv.png)
 
 [![CircleCI](https://circleci.com/bb/doislan/dodonate.svg?style=shield)](https://circleci.com/bb/doislan/dodonate)
 
@@ -13,7 +13,7 @@ After cloning the project to your machine, navegate to dodonate directory and ru
 
 ```
 docker-compose build
-docker-compose exec web rake db:setup
+docker-compose run web rake db:migrate
 ```
 
 ## How to run
@@ -23,8 +23,8 @@ docker-compose up
 
 ## How to test
 ```
-docker-compose exec web rspec
+docker-compose run web bundle exec rspec
 ```
 
 ## Disclaimer
-Illustrations by *Vecteezy.com*
+Illustration by Stevan Rodic
