@@ -1,7 +1,7 @@
 class User < ApplicationRecord  
-  has_many :items
   has_secure_password
-
+  
+  has_many :items
   before_save { self.email = email.downcase }
 
   validates :name, 
@@ -9,7 +9,7 @@ class User < ApplicationRecord
   	length: { maximum: 255 }
   
   validates :email, 
-  	presence: true, 
+    presence: true, 
   	length: { maximum: 255 }, 
   	format: { with: UsersHelper.email_regex }, 
   	uniqueness: { case_sensitive: false }
