@@ -9,6 +9,16 @@ class Api::V1::ItemsController < Api::V1::ApiController
     render json: @item
   end
 
+  def show_by_user
+    items = Item.owner(params[:user_id]).order("id asc")
+    render json: items
+  end
+
+  def show_by_category
+    items = Item.where(item_category_id: params[:item_category_id]).order("id asc")
+    render json: items
+  end
+
   def create
     item = Item.new(item_params)
     if item.save
