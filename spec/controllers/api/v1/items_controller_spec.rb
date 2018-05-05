@@ -56,6 +56,60 @@ describe Api::V1::ItemsController do
     end
   end
 
+  describe "#show" do 
+    context "GET returns an item" do
+      before do 
+        get :show, params: { id: item.id }
+        @json = JSON.parse(response.body)
+      end
+
+      it { expect(response.status).to eq(200) }
+      it { expect(@json["id"]).to eq(item.id) }
+    end
+
+    context "GET returns an error when item dont exists" do
+      before do 
+        get :show, params: { id: 0 }
+        @json = JSON.parse(response.body)
+      end
+
+      it { expect(response.status).to eq(200) }
+      it { expect(@json["errors"]).to eq("Resource not found") }
+    end
+  end
+
+  describe "#show_by_user" do 
+    context "GET returns all items from user" do
+      before do 
+        5.times do
+          Item.create(item_params)
+        end
+
+        get :show_by_user, params: { user_id: user.id }
+        @json = JSON.parse(response.body)
+      end
+
+      it { expect(response.status).to eq(200) }
+      it { expect(@json.size).to eq(5) }
+    end
+  end
+
+  describe "#show_by_category" do 
+    context "GET returns all items from category" do
+      before do 
+        7.times do
+          Item.create(item_params)
+        end
+
+        get :show_by_category, params: { item_category_id: item_category.id }
+        @json = JSON.parse(response.body)
+      end
+
+      it { expect(response.status).to eq(200) }
+      it { expect(@json.size).to eq(7) }
+    end
+  end
+
   describe "#create" do 
     context "CREATE returns an error when creation fails" do
       before do 
