@@ -12,6 +12,10 @@ class Api::V1::ApiController < ActionController::API
     end
   end
 
+  def render_internal_error
+    render json: { status: 500, errors: 'Internal error' }
+  end
+
   def render_unauthorized
     render json: { status: 403, errors: 'Not authorized' }
   end
