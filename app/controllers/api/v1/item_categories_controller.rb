@@ -1,5 +1,5 @@
 class Api::V1::ItemCategoriesController < Api::V1::ApiController
-  before_action :require_login, only: [:create, :update, :destroy]
+  before_action :require_authentication, only: [:create, :update, :destroy]
   before_action :item_category_exists?, only: [ :show, :update, :destroy ]
 
   def index

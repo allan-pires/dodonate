@@ -4,13 +4,13 @@ class Api::V1::ApiController < ActionController::API
   after_action :clear_user_data
   current_user = nil
 
-  def require_login
-    authenticate_user || render_unauthenticated
+  def require_authentication
+    verify_authentication || render_unauthenticated
   end
 
   private 
   
-  def authenticate_user
+  def verify_authentication
     case request.content_type
     when Mime[:json]
       if user = authenticate_with_http_basic { |email, password| authenticate(email, password) }

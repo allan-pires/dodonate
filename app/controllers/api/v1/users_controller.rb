@@ -1,7 +1,7 @@
 class Api::V1::UsersController < Api::V1::ApiController
-  before_action :require_login, only: [:create, :update, :destroy]
+  before_action :require_authentication, only: [:index, :show, :update, :destroy]
   before_action :user_exists?, only: [ :show, :update, :destroy ]
-  before_action :check_permission, only: [:edit, :update, :destroy]
+  before_action :check_permission, only: [:show, :edit, :update, :destroy]
 
   def index
     render json: User.all

@@ -1,5 +1,5 @@
 class Api::V1::ItemsController < Api::V1::ApiController
-  before_action :require_login, only: [:create, :update, :destroy]
+  before_action :require_authentication, only: [:create, :update, :destroy]
   before_action :item_exists?, only: [ :show, :update, :destroy ]
   before_action :check_permission, only: [:edit, :update, :destroy]
 
