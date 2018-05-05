@@ -87,7 +87,6 @@ h1 {
 h2 {
   font-size: 2em;
   letter-spacing: -2px;
-  margin-bottom: 30px;
 }
 
 h3 {
@@ -98,7 +97,6 @@ h3 {
 
 .subtext {
   font-size: 1.2em;
-  margin-bottom: 30px;
   font-weight: normal;
   color: #777;
 }
@@ -235,7 +233,12 @@ input {
   width: 40px;
 }
 
+.btn {
+  margin-top: 20px;
+}
+
 .btn-small {
+  margin-top: 0px;
   width: 100px;
 }
 
@@ -265,5 +268,9 @@ input {
 .welcome-container {
   max-width: 750px;
   margin: 0 auto;
+}
+
+.tips {
+  margin-top: 15%;
 }
 

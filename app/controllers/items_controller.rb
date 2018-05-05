@@ -4,7 +4,7 @@ class ItemsController < ApplicationController
 
   def index
     @own_items = Item.owner(current_user).order("id asc")
-    @all_items = Item.all.order("id asc")
+    @other_items = Item.owner_not(current_user).order("id asc")
   end
 
   def show
