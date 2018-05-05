@@ -1,5 +1,5 @@
 class Api::V1::ItemCategoriesController < Api::V1::ApiController
-  before_action  :item_exists?, only: [ :show, :edit, :destroy ]
+  before_action  :item_exists?, only: [ :show, :update, :destroy ]
 
   def index
     render json: ItemCategory.all
@@ -28,7 +28,7 @@ class Api::V1::ItemCategoriesController < Api::V1::ApiController
 
   def destroy
     if @item_category.destroy
-      render json: { status: 200, errors: 'Item category deleted!' }
+      render json: { message: 'Item category deleted!' }
     else
       render json: { errors: 'Failed to delete item category' }
     end    
