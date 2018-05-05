@@ -1,5 +1,5 @@
 class Api::V1::ItemCategoriesController < Api::V1::ApiController
-  before_action  :item_exists?, only: [ :show, :update, :destroy ]
+  before_action  :item_category_exists?, only: [ :show, :update, :destroy ]
 
   def index
     render json: ItemCategory.all
@@ -36,7 +36,7 @@ class Api::V1::ItemCategoriesController < Api::V1::ApiController
 
   private 
 
-  def item_exists?
+  def item_category_exists?
     begin
       @item_category = ItemCategory.find(params[:id])
     rescue ActiveRecord::RecordNotFound
