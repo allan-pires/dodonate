@@ -4,8 +4,9 @@ class Api::V1::ApiController < ActionController::API
     authenticate_user || render_unauthorized
   end
 
+  private 
+  
   def authenticate_user
-    puts "------------------------>>>>>>>>> AUTH #{email}@#{password}"
     authenticate_with_http_basic do |email, password|
       user = User.find_by_email(email)
       user && user.authenticate(params[:session][:password])
@@ -13,19 +14,19 @@ class Api::V1::ApiController < ActionController::API
   end
 
   def render_internal_error
-    render json: { status: 500, errors: 'Internal error' }
+    render json: { errors: 'Internal error' }
   end
 
   def render_unauthorized
-    render json: { status: 403, errors: 'Not authorized' }
+    render json: { errors: 'Not authorized' }
   end
 
   def render_unauthenticated
-    render json: { status: 401, errors: 'Not authenticated' }
+    render json: { errors: 'Not authenticated' }
   end
 
   def render_not_found
-    render json: { status: 404, errors: 'Resource not found' }
+    render json: { errors: 'Resource not found' }
   end
 
 end
