@@ -5,6 +5,8 @@ Rails.application.routes.draw do
       resources :items
       resources :item_categories
       resources :users
+      get "/item_categories/:item_category_id/items/", to: 'items#show_by_category'
+      get "/users/:user_id/items/", to: 'items#show_by_user'
     end
   end
 
