@@ -1,5 +1,7 @@
 class Api::V1::ItemsController < Api::V1::ApiController
-  before_action  :item_exists?, only: [ :show, :update, :destroy ]
+  before_action :require_login, only: [:create, :update, :destroy]
+  before_action :item_exists?, only: [ :show, :update, :destroy ]
+  before_action :check_permission, only: [:edit, :update, :destroy]
 
   def index
     render json: Item.all
@@ -21,6 +23,7 @@ class Api::V1::ItemsController < Api::V1::ApiController
 
   def create
     item = Item.new(item_params)
+    item.user_id = @current_user.id
     if item.save
       render json: item
     else
@@ -51,6 +54,13 @@ class Api::V1::ItemsController < Api::V1::ApiController
       @item = Item.find(params[:id])
     rescue ActiveRecord::RecordNotFound
       render_not_found
+    end
+  end
+
+  def check_permission
+    item = Item.find(params[:id])
+    if item && item.user_id != current_user.id
+      render_unauthorized
     end
   end
 

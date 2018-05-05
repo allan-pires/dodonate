@@ -1,5 +1,7 @@
 class Api::V1::UsersController < Api::V1::ApiController
-  before_action  :user_exists?, only: [ :show, :update, :destroy ]
+  before_action :require_login, only: [:create, :update, :destroy]
+  before_action :user_exists?, only: [ :show, :update, :destroy ]
+  before_action :check_permission, only: [:edit, :update, :destroy]
 
   def index
     render json: User.all
@@ -41,6 +43,13 @@ class Api::V1::UsersController < Api::V1::ApiController
       @user = User.find(params[:id])
     rescue ActiveRecord::RecordNotFound
       render_not_found
+    end
+  end
+
+  def check_permission
+    user = User.find(params[:id])
+    if user && user.id != current_user.id
+      render_unauthorized
     end
   end
 
