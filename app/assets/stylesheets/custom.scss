@@ -3,11 +3,15 @@
 @import "bootstrap-sprockets";
 @import "bootstrap";
 
+$main-color: #0077b3;
+$secondary-color: #00aaff;
+$main-font: 'Nunito', sans-serif;
+
 /* universal */
 
 body {
   padding-top: 60px;
-  font-family: 'Nunito', sans-serif;
+  font-family: $main-font;
 }
 
 section {
@@ -27,19 +31,22 @@ textarea {
 }
 
 .navbar-inverse {
-  background-color: #007786;
-  border-color: #F6CA25;
+  background-color: $main-color;
   border: none;
 
   .navbar-nav li { 
     a {
+      -moz-transition: all .2s ease-in;
+      -o-transition: all .2s ease-in;
+      -webkit-transition: all .2s ease-in;
+      transition: all .2s ease-in;
       color: white;
     }
   }
 
   .navbar-nav li:hover { 
     a {
-      color: #F6CA25;
+      color: $secondary-color;
     }
   }
 }
@@ -53,12 +60,16 @@ textarea {
 }
 
 .btn-primary {
-  background-color: #007684;
+  -moz-transition: all .2s ease-in;
+  -o-transition: all .2s ease-in;
+  -webkit-transition: all .2s ease-in;
+  transition: all .2s ease-in;
+  background-color: $main-color;
   border: none;
 }
 
 .btn-primary:hover {
-  background-color: #009CAC;
+  background-color: $secondary-color;
 }
 
 /* typography */
@@ -182,7 +193,6 @@ input {
   }
 }
 
-
 .alert {
   text-align: center;
   margin: auto;
@@ -192,23 +202,32 @@ input {
   margin-top: 15px;
 }
 
-.blue {
-  color: lightslategrey ;
+.edit-item { 
+  color: lightslategrey;
   text-decoration: none;
 
-  :hover {
-    color: dodgerblue;
-    text-decoration: none;
-  }
-
+  -moz-transition: all .2s ease-in;
+  -o-transition: all .2s ease-in;
+  -webkit-transition: all .2s ease-in;
+  transition: all .2s ease-in;
 }
 
-.red {
-  color: lightslategrey;
+.edit-item:hover {
+  color: dodgerblue;
+  text-decoration: none;
+}
 
-  :hover {
-    color: crimson;
-  }
+.delete-item {
+  color: lightslategrey;
+  text-decoration: none;
+  -moz-transition: all .2s ease-in;
+  -o-transition: all .2s ease-in;
+  -webkit-transition: all .2s ease-in;
+  transition: all .2s ease-in;
+}
+
+.delete-item:hover {
+  color: crimson;
 }
 
 .logo {
@@ -219,3 +238,32 @@ input {
 .btn-small {
   width: 100px;
 }
+
+.navbar-title {
+  margin-top: 5px;
+  margin-left: 10px;
+}
+
+.dodo {
+}
+
+.project-title {
+  h1 {
+    font-size: 48px;
+    color: $main-color;
+  }
+
+  b {
+  }
+
+  .logo-dashboard {
+    height: 160px;
+    width: 160px;
+  }
+}
+
+.welcome-container {
+  max-width: 750px;
+  margin: 0 auto;
+}
+

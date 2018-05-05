@@ -1,10 +1,15 @@
 <header class="navbar navbar-fixed-top navbar-inverse">
   <div class="container">
     <nav>
-      <ul class="nav navbar-nav navbar-left">
-        <!-- <li><#%= image_tag("dodo.png", class: "logo") %></li> -->
-        <li>DoDonate</li>
-      </ul>
+      <a href="/home">
+        <ul class="nav navbar-nav navbar-left">
+          <li><%= image_tag("dodo-white.png", class: "logo") %></li>
+          <li class="navbar-title">
+            <b class="dodo">Dodo</b>nate
+          </li>
+        </ul>
+      </a>
+
       <ul class="nav navbar-nav navbar-right">
         <li><%= link_to "Home", home_path %></li>
         <li><%= link_to "About", about_path %></li>
