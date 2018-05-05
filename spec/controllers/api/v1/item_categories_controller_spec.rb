@@ -3,7 +3,7 @@ require 'rails_helper'
 describe Api::V1::ItemCategoriesController do
   
   before do
-    allow_any_instance_of(Api::V1::ItemCategoriesController).to receive(:item_exists?).and_call_original
+    allow_any_instance_of(Api::V1::ItemCategoriesController).to receive(:item_category_exists?).and_call_original
   end
   
   let(:item_category) { ItemCategory.create(description: 'STUFF') }
