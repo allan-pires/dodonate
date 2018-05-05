@@ -125,7 +125,7 @@ describe Api::V1::ItemsController do
       end
 
       it { expect(response.status).to eq(200) }
-      it { expect(@json["errors"]).to eq("Failed to create item") }
+      it { expect(@json).to have_key("errors") }
     end
   end
 
@@ -159,7 +159,7 @@ describe Api::V1::ItemsController do
       end
 
       it { expect(response.status).to eq(200) }
-      it { expect(@json["errors"]).to eq("Failed to update item") }
+      it { expect(@json).to have_key("errors") }
     end
   end
 
@@ -193,7 +193,7 @@ describe Api::V1::ItemsController do
       end
 
       it { expect(response.status).to eq(200) }
-      it { expect(@json["errors"]).to eq("Failed to delete item") }
+      it { expect(@json).to have_key("errors") }
     end
   end
 

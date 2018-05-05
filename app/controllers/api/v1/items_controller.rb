@@ -27,7 +27,7 @@ class Api::V1::ItemsController < Api::V1::ApiController
     if item.save
       render json: item
     else
-      render json: { errors: 'Failed to create item' }
+      render json: { errors: item.errors.full_messages }
     end
   end
 
@@ -35,7 +35,7 @@ class Api::V1::ItemsController < Api::V1::ApiController
     if @item.update_attributes(item_params)      
       render json: @item
     else
-      render json: { errors: 'Failed to update item' }
+      render json: { errors: @item.errors.full_messages }
     end
   end
 
@@ -43,7 +43,7 @@ class Api::V1::ItemsController < Api::V1::ApiController
     if @item.destroy
       render json: { message: 'Item deleted!' }
     else
-      render json: { errors: 'Failed to delete item' }
+      render json: { errors: @item.errors.full_messages }
     end    
   end
 

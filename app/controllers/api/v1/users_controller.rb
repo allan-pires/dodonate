@@ -16,7 +16,7 @@ class Api::V1::UsersController < Api::V1::ApiController
     if user.save
       render json: user
     else
-      render json: { errors: 'Failed to create user' }
+      render json: { errors: user.errors.full_messages }
     end
   end
 
@@ -24,7 +24,7 @@ class Api::V1::UsersController < Api::V1::ApiController
     if @user.update_attributes(user_params)      
       render json: @user
     else
-      render json: { errors: 'Failed to update user' }
+      render json: { errors: @user.errors.full_messages }
     end
   end
 
@@ -32,7 +32,7 @@ class Api::V1::UsersController < Api::V1::ApiController
     if @user.destroy
       render json: { message: 'User deleted!' }
     else
-      render json: { errors: 'Failed to delete user' }
+      render json: { errors: @user.errors.full_messages }
     end    
   end
 
@@ -54,7 +54,7 @@ class Api::V1::UsersController < Api::V1::ApiController
   end
 
   def user_params
-    params.require(:user).permit(:name, :email, :password, :password_confirmation)
+    params.require(:user).permit(:name, :email, :password)
   end
 
 end

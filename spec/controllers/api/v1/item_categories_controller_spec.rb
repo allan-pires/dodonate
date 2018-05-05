@@ -77,7 +77,7 @@ describe Api::V1::ItemCategoriesController do
       end
 
       it { expect(response.status).to eq(200) }
-      it { expect(@json["errors"]).to eq("Failed to create item category") }
+      it { expect(@json).to have_key("errors") }
     end
   end
 
@@ -112,7 +112,7 @@ describe Api::V1::ItemCategoriesController do
       end
 
       it { expect(response.status).to eq(200) }
-      it { expect(@json["errors"]).to eq("Failed to update item category") }
+      it { expect(@json).to have_key("errors") }
     end
   end
 
@@ -146,7 +146,7 @@ describe Api::V1::ItemCategoriesController do
       end
 
       it { expect(response.status).to eq(200) }
-      it { expect(@json["errors"]).to eq("Failed to delete item category") }
+      it { expect(@json).to have_key("errors") }
     end
   end
 

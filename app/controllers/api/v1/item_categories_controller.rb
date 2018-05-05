@@ -15,7 +15,7 @@ class Api::V1::ItemCategoriesController < Api::V1::ApiController
     if item_category.save
       render json: item_category
     else
-      render json: { errors: 'Failed to create item category' }
+      render json: { errors: item_category.errors.full_messages }
     end
   end
 
@@ -23,7 +23,7 @@ class Api::V1::ItemCategoriesController < Api::V1::ApiController
     if @item_category.update_attributes(item_category_params)      
       render json: @item_category
     else
-      render json: { errors: 'Failed to update item category' }
+      render json: { errors: @item_category.errors.full_messages }
     end
   end
 
@@ -31,7 +31,7 @@ class Api::V1::ItemCategoriesController < Api::V1::ApiController
     if @item_category.destroy
       render json: { message: 'Item category deleted!' }
     else
-      render json: { errors: 'Failed to delete item category' }
+      render json: { errors: @item_category.errors.full_messages }
     end    
   end
 

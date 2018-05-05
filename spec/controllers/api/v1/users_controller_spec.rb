@@ -11,6 +11,7 @@ describe Api::V1::UsersController do
   end
 
   let(:user) { User.create(name: 'Ash Ketchum', email: 'ash@pallet.com', password: 'gottacatchthemall') }
+  let(:another_user) { User.create(name: 'Brock', email: 'brock@pewter.com', password: 'geoduderocks') }
   let (:user_params) do   
     {
       name: 'Ash Ketchum',
@@ -30,6 +31,20 @@ describe Api::V1::UsersController do
 
       it { expect(response.status).to eq(200) }
       it { expect(@json.size).to eq(1) }
+    end
+
+    context "GET fails when not authenticated" do
+      before do 
+        User.create(user_params)
+        @request.env['HTTP_AUTHORIZATION'] = 
+          ActionController::HttpAuthentication::Basic.encode_credentials("anotherser", "anotherpassword")
+
+        get :index
+        @json = JSON.parse(response.body)
+      end
+
+      it { expect(response.status).to eq(200) }
+      it { expect(@json["errors"]).to eq("Not authenticated") }
     end
   end
 
@@ -53,10 +68,23 @@ describe Api::V1::UsersController do
       it { expect(response.status).to eq(200) }
       it { expect(@json["errors"]).to eq("Resource not found") }
     end
+
+    context "GET fails when not authenticated" do
+      before do 
+        @request.env['HTTP_AUTHORIZATION'] = 
+          ActionController::HttpAuthentication::Basic.encode_credentials("anotherser", "anotherpassword")
+
+        get :show, params: { id: 0 }
+        @json = JSON.parse(response.body)
+      end
+
+      it { expect(response.status).to eq(200) }
+      it { expect(@json["errors"]).to eq("Not authenticated") }
+    end
   end
 
   describe "#create" do 
-    context "CREATE returns an error when creation fails" do
+    context "POST returns an error when creation fails" do
       before do 
         allow_any_instance_of(User).to receive(:save).and_return(false)
 
@@ -65,7 +93,7 @@ describe Api::V1::UsersController do
       end
 
       it { expect(response.status).to eq(200) }
-      it { expect(@json["errors"]).to eq("Failed to create user") }
+      it { expect(@json).to have_key("errors") }
     end
   end
 
@@ -99,7 +127,19 @@ describe Api::V1::UsersController do
       end
 
       it { expect(response.status).to eq(200) }
-      it { expect(@json["errors"]).to eq("Failed to update user") }
+      it { expect(@json).to have_key("errors") }
+    end
+
+    context "PATCH fails when not authorized" do
+      before do 
+        allow_any_instance_of(Api::V1::UsersController).to receive(:current_user).and_return(another_user)   
+        
+        patch :update, params: { id: user.id, user: user_params } 
+        @json = JSON.parse(response.body)
+      end
+
+      it { expect(response.status).to eq(200) }
+      it { expect(@json["errors"]).to eq("Not authorized") }
     end
   end
 
@@ -133,7 +173,19 @@ describe Api::V1::UsersController do
       end
 
       it { expect(response.status).to eq(200) }
-      it { expect(@json["errors"]).to eq("Failed to delete user") }
+      it { expect(@json).to have_key("errors") }
+    end
+
+    context "DELETE fails when not authorized" do
+      before do 
+        allow_any_instance_of(Api::V1::UsersController).to receive(:current_user).and_return(another_user)   
+        
+        delete :destroy, params: { id: user.id, user: user_params } 
+        @json = JSON.parse(response.body)
+      end
+
+      it { expect(response.status).to eq(200) }
+      it { expect(@json["errors"]).to eq("Not authorized") }
     end
   end
 
