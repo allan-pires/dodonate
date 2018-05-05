@@ -3,7 +3,12 @@ require 'rails_helper'
 describe Api::V1::ItemsController do
   
   before do
+    @request.env["CONTENT_TYPE"] = "application/json"
+    @request.env['HTTP_AUTHORIZATION'] = 
+        ActionController::HttpAuthentication::Basic.encode_credentials(user.email, user.password)
+
     allow_any_instance_of(Api::V1::ItemsController).to receive(:item_exists?).and_call_original
+    allow_any_instance_of(Api::V1::ItemsController).to receive(:current_user).and_return(user)   
   end
   
   let(:item_category) { ItemCategory.create(description: 'STUFF') }

@@ -1,8 +1,7 @@
 class Api::V1::ApiController < ActionController::API
-  after_action :clear_user_data
-
   include ActionController::HttpAuthentication::Basic::ControllerMethods
-
+  
+  after_action :clear_user_data
   current_user = nil
 
   def require_login

@@ -3,9 +3,13 @@ require 'rails_helper'
 describe Api::V1::UsersController do
   
   before do
-    allow_any_instance_of(Api::V1::UsersController).to receive(:user_exists?).and_call_original
+    @request.env["CONTENT_TYPE"] = "application/json"
+    @request.env['HTTP_AUTHORIZATION'] = 
+        ActionController::HttpAuthentication::Basic.encode_credentials(user.email, user.password)
+    
+    allow_any_instance_of(Api::V1::UsersController).to receive(:current_user).and_return(user)   
   end
-  
+
   let(:user) { User.create(name: 'Ash Ketchum', email: 'ash@pallet.com', password: 'gottacatchthemall') }
   let (:user_params) do   
     {

@@ -31,7 +31,7 @@
               
               <span class="cf-error-type">Error</span>
               <span class="cf-error-code">521</span>
-              <small class="heading-ray-id">Ray ID: 41653b2175d28138 &bull; 2018-05-05 18:22:10 UTC</small>
+              <small class="heading-ray-id">Ray ID: 41655609d7302ec9 &bull; 2018-05-05 18:40:32 UTC</small>
             </h1>
             <h2 class="cf-subheadline">Web server is down</h2>
         </div><!-- /.error-overview -->
@@ -55,7 +55,7 @@
     <i class="cf-icon cf-icon-cloud"></i>
     <i class="cf-icon-status cf-icon-ok"></i>
   </div>
-  <span class="cf-status-desc">São Paulo</span>
+  <span class="cf-status-desc">Miami</span>
   <h3 class="cf-status-name">Cloudflare</h3>
   <span class="cf-status-label">Working</span>
 </div>
@@ -96,7 +96,7 @@
 
         <div class="cf-error-footer cf-wrapper">
   <p>
-    <span class="cf-footer-item">Cloudflare Ray ID: <strong>41653b2175d28138</strong></span>
+    <span class="cf-footer-item">Cloudflare Ray ID: <strong>41655609d7302ec9</strong></span>
     <span class="cf-footer-separator">&bull;</span>
     <span class="cf-footer-item"><span>Your IP</span>: 201.6.232.119</span>
     <span class="cf-footer-separator">&bull;</span>

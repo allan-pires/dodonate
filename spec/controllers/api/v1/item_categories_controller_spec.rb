@@ -3,10 +3,16 @@ require 'rails_helper'
 describe Api::V1::ItemCategoriesController do
   
   before do
+    @request.env["CONTENT_TYPE"] = "application/json"
+    @request.env['HTTP_AUTHORIZATION'] = 
+        ActionController::HttpAuthentication::Basic.encode_credentials(user.email, user.password)
+    
     allow_any_instance_of(Api::V1::ItemCategoriesController).to receive(:item_category_exists?).and_call_original
+    allow_any_instance_of(Api::V1::ItemCategoriesController).to receive(:current_user).and_return(user)   
   end
   
   let(:item_category) { ItemCategory.create(description: 'STUFF') }
+  let(:user) { User.create(name: 'Ash Ketchum', email: 'ash@pallet.com', password: 'gottacatchthemall') }
   let (:item_category_params) do   
     {
       id: item_category.id,
