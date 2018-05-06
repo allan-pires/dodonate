@@ -4,14 +4,13 @@ class SessionsController < ApplicationController
   end
 
   def create
-    user = AuthenticationService.authenticate(params[:email], params[:password])    
-    if user.success?
-      log_in user
-      redirect_to home_path
-    else
-      flash[:danger] = 'Invalid email or password :('
-      render 'new'
+    result = AuthenticationService.authenticate(params[:session][:email], params[:session][:password])    
+    if result.success?
+      log_in result.obj
+      return redirect_to home_path
     end
+    flash[:danger] = 'Invalid email or password :('
+    render 'new'
   end
 
   def destroy
@@ -22,6 +21,7 @@ class SessionsController < ApplicationController
   private
 
   def log_in(user)
+    puts "------------->>>>>>>>>#{user.inspect}"
     session[:user_id] = user.id
   end
 

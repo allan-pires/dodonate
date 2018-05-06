@@ -1,7 +1,7 @@
 class Api::V1::ApiController < ActionController::API
   include ActionController::HttpAuthentication::Basic::ControllerMethods
   after_action :clear_user_data
-  current_user = nil
+  @current_user = nil
 
   def require_authentication
     verify_authentication || render_unauthenticated
@@ -10,23 +10,23 @@ class Api::V1::ApiController < ActionController::API
   private 
   
   def verify_authentication
-    case request.content_type
-    when Mime[:json]
+    auth_result = nil
+    if request.content_type == Mime[:json]
       authenticate_with_http_basic do |email, password| 
-        result = AuthenticationService.authenticate(email, password) 
-        if result.success?
-          @current_user = result.obj
-        end
+        auth_result = AuthenticationService.authenticate(email, password) 
       end
+    end
+
+    if auth_result && auth_result.success?
+      @current_user = auth_result.obj
     end
   end
 
   def render_result(result)
     if result.success?
-      render json: result.obj
-    else
-      render json: { errors: result.obj.errors.full_messages }
+      return render json: result.obj
     end
+    render json: { errors: result.obj.errors.full_messages }
   end
 
   def clear_user_data

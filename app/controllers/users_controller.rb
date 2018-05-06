@@ -8,11 +8,10 @@ class UsersController < ApplicationController
     result = CRUDService.create(User, user_params)
     if result.success?
       flash[:success] = "Account created! Please log in"
-      redirect_to login_path
-    else
-      flash[:danger] = "Failed to create new account"
-      render 'new'
+      return redirect_to login_path
     end
+    flash[:danger] = "Failed to create new account"
+    render 'new'
   end
 
   def edit
@@ -22,11 +21,10 @@ class UsersController < ApplicationController
   def update
     if CRUDService.update(current_user, user_params).success?
       flash[:success] = "Profile updated!"
-      redirect_to profile_path
-    else
-      flash[:danger] = "Failed to update profile"
-      render 'edit'
+      return redirect_to profile_path
     end
+    flash[:danger] = "Failed to update profile"
+    render 'edit'
   end
 
   private 

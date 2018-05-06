@@ -21,11 +21,11 @@ class ItemsController < ApplicationController
     result = CRUDService.create(Item, params)
     if result.success?    
       flash[:success] = "Item added to donation!"
-      redirect_to items_path
-    else
-      flash[:danger] = "Failed to create item!"
-      render 'new'
+      return redirect_to items_path
     end
+
+    flash[:danger] = "Failed to create item!"
+    render 'new'
   end
 
   def edit
@@ -37,11 +37,11 @@ class ItemsController < ApplicationController
     result = CRUDService.update(item, item_params)
     if result.success?     
       flash[:success] = "Item updated!"
-      redirect_to items_path
-    else
-      flash[:danger] = "Failed to update item!"
-      render 'edit'
+      return redirect_to items_path
     end
+
+    flash[:danger] = "Failed to update item!"
+    render 'edit'
   end
 
   def destroy
