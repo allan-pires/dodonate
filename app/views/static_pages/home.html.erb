@@ -1,11 +1,8 @@
 <% provide(:title, "Home") %>
 <div class="center">
-  <%#= image_tag("dodo-black.png", alt: "DoDonate logo") %>
-
   <% if logged_in? %>
-    <%= render 'static_pages/partials/dashboard' %>
+    <%= render 'static_pages/dashboard' %>
   <% else %>
-    <%= render 'static_pages/partials/welcome' %>
+    <%= render 'static_pages/welcome' %>
   <% end %>
-  
 </div>

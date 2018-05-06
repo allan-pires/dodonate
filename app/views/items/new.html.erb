@@ -7,7 +7,7 @@
   <div class="col-md-6 col-md-offset-3">
     <%= form_for(@item) do |f| %>
       <%= render 'shared/error_messages', object: @item %>
-      <%= render 'items/partials/item_form', object: @item %>
+      <%= render 'item_form', object: @item %>
     <% end %>
     <h3>Hmm, nothing to do here... <%= link_to "let's go back", home_path %></h3>  
 
