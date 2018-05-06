@@ -37,7 +37,7 @@ describe Api::V1::UsersController do
       before do 
         User.create(user_params)
         @request.env['HTTP_AUTHORIZATION'] = 
-          ActionController::HttpAuthentication::Basic.encode_credentials("anotherser", "anotherpassword")
+          ActionController::HttpAuthentication::Basic.encode_credentials("anotheremail@mail.com", "anotherpassword")
 
         get :index
         @json = JSON.parse(response.body)
