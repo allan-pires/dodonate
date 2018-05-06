@@ -1,5 +1,3 @@
-require_relative '../services/user_service'
-
 class UsersController < ApplicationController
   
   def new
@@ -7,7 +5,7 @@ class UsersController < ApplicationController
   end
 
   def create
-    result = UserService.create_user(user_params)
+    result = CRUDService.create(User, user_params)
     if result.success?
       flash[:success] = "Account created! Please log in"
       redirect_to login_path
@@ -22,7 +20,7 @@ class UsersController < ApplicationController
   end
 
   def update
-    if UserService.update_user(current_user, user_params).success?
+    if CRUDService.update(current_user, user_params).success?
       flash[:success] = "Profile updated!"
       redirect_to profile_path
     else

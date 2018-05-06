@@ -124,7 +124,7 @@ describe Api::V1::ItemCategoriesController do
       end
 
       it { expect(response.status).to eq(200) }
-      it { expect(@json["message"]).to eq("Item category deleted!") }
+      it { expect(@json["message"]).to eq("Successfully deleted!") }
     end
 
     context "DELETE returns an error when item category dont exists" do

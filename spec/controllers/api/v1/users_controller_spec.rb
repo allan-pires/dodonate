@@ -161,7 +161,7 @@ describe Api::V1::UsersController do
       end
 
       it { expect(response.status).to eq(200) }
-      it { expect(@json["message"]).to eq("User deleted!") }
+      it { expect(@json["message"]).to eq("Successfully deleted!") }
     end
 
     context "DELETE returns an error when user dont exists" do

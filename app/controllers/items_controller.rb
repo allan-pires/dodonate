@@ -16,7 +16,9 @@ class ItemsController < ApplicationController
   end
 
   def create
-    result = ItemService.create_item(item_params, current_user)
+    params = item_params
+    params[:user_id] = current_user.id
+    result = CRUDService.create(Item, params)
     if result.success?    
       flash[:success] = "Item added to donation!"
       redirect_to items_path
@@ -32,7 +34,7 @@ class ItemsController < ApplicationController
 
   def update
     item = Item.find(params[:id])
-    result = ItemService.update_item(item, item_params)
+    result = CRUDService.update(item, item_params)
     if result.success?     
       flash[:success] = "Item updated!"
       redirect_to items_path
@@ -44,7 +46,7 @@ class ItemsController < ApplicationController
 
   def destroy
     item = Item.find(params[:id])
-    result = ItemService.delete_item(item)
+    result = CRUDService.delete(item)
     if result.success?    
       flash[:success] = "Item deleted!"
     else

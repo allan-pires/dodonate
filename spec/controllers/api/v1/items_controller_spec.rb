@@ -193,7 +193,7 @@ describe Api::V1::ItemsController do
       end
 
       it { expect(response.status).to eq(200) }
-      it { expect(@json["message"]).to eq("Item deleted!") }
+      it { expect(@json["message"]).to eq("Successfully deleted!") }
     end
 
     context "DELETE returns an error when item dont exists" do

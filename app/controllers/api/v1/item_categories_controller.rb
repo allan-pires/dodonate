@@ -10,17 +10,17 @@ class Api::V1::ItemCategoriesController < Api::V1::ApiController
   end
 
   def create
-    result = ItemCategoryService.create_category(item_category_params)
+    result = CRUDService.create(ItemCategory, item_category_params)
     render_result(result)
   end
 
   def update    
-    result = ItemCategoryService.update_category(@item_category, item_category_params)
+    result = CRUDService.update(@item_category, item_category_params)
     render_result(result)
   end
 
   def destroy
-    result = ItemCategoryService.delete_category(@item_category)
+    result = CRUDService.delete(@item_category)
     render_result(result)  
   end
 

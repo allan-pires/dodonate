@@ -23,17 +23,19 @@ class Api::V1::ItemsController < Api::V1::ApiController
   end
 
   def create
-    result = ItemService.create_item(item_params, current_user)
+    params = item_params
+    params[:user_id] = current_user.id
+    result = CRUDService.create(Item, params)
     render_result(result)
   end
 
   def update
-    result = ItemService.update_item(@item, item_params)
+    result = CRUDService.update(@item, item_params)
     render_result(result)
   end
 
   def destroy
-    result = ItemService.delete_item(@item)
+    result = CRUDService.delete(@item)
     render_result(result)    
   end
 

@@ -1,5 +1,3 @@
-require_relative '../../../services/authentication_service'
-
 class Api::V1::ApiController < ActionController::API
   include ActionController::HttpAuthentication::Basic::ControllerMethods
   after_action :clear_user_data

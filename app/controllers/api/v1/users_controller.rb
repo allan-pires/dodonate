@@ -1,5 +1,3 @@
-require_relative '../../../services/user_service'
-
 class Api::V1::UsersController < Api::V1::ApiController
   before_action :require_authentication, only: [:index, :show, :update, :destroy]  
   before_action :user_exists?, only: [ :show, :update, :destroy ]
@@ -15,17 +13,17 @@ class Api::V1::UsersController < Api::V1::ApiController
   end
 
   def create
-    result = UserService.create_user(user_params)
+    result = CRUDService.create(User, user_params)
     render_result(result)
   end
 
   def update
-    result = UserService.update_user(@user, user_params)
+    result = CRUDService.update(@user, user_params)
     render_result(result)
   end
 
   def destroy
-    result = UserService.delete_user(@user)
+    result = CRUDService.delete(@user)
     render_result(result)
   end
 
