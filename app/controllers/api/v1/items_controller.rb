@@ -24,7 +24,7 @@ class Api::V1::ItemsController < Api::V1::ApiController
 
   def create
     params = item_params
-    params[:user_id] = @current_user.id
+    params[:user_id] = current_user.id
     result = CRUDService.create(Item, params)
     render_result(result)
   end
@@ -49,7 +49,7 @@ class Api::V1::ItemsController < Api::V1::ApiController
 
   def check_permission
     item = Item.find(params[:id])
-    if item && item.user_id != @current_user.id
+    if item && item.user_id != current_user.id
       render_unauthorized
     end
   end

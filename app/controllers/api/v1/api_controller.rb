@@ -29,6 +29,10 @@ class Api::V1::ApiController < ActionController::API
     render json: { errors: result.obj.errors.full_messages }
   end
 
+  def current_user
+    @current_user
+  end
+
   def clear_user_data
     @current_user = nil
   end

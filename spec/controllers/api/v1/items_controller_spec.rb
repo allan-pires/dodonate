@@ -7,7 +7,7 @@ describe Api::V1::ItemsController do
     @request.env['HTTP_AUTHORIZATION'] = 
         ActionController::HttpAuthentication::Basic.encode_credentials(user.email, user.password)
 
-    allow_any_instance_of(Api::V1::ItemsController).to receive(:current_user).and_return(user)
+    @current_user = user
   end
   
   let(:item_category) { ItemCategory.create(description: 'STUFF') }
@@ -19,7 +19,6 @@ describe Api::V1::ItemsController do
       name: 'Greatball',
       description: "Better than a normal pokeball",
       quantity: 5,
-      user_id: user.id,
       item_category_id: item_category.id
     }
   end
@@ -27,6 +26,7 @@ describe Api::V1::ItemsController do
   describe "#index" do 
     context "GET list all items" do
       before do 
+        item_params[:user_id] = user.id
         Item.create(item_params)
         Item.create(item_params)
 
@@ -86,6 +86,7 @@ describe Api::V1::ItemsController do
   describe "#show_by_user" do 
     context "GET returns all items from user" do
       before do 
+        item_params[:user_id] = user.id
         5.times do
           Item.create(item_params)
         end
@@ -102,6 +103,7 @@ describe Api::V1::ItemsController do
   describe "#show_by_category" do 
     context "GET returns all items from category" do
       before do 
+        item_params[:user_id] = user.id
         7.times do
           Item.create(item_params)
         end
@@ -174,8 +176,8 @@ describe Api::V1::ItemsController do
 
     context "PATCH fails when user is not the owner" do
       before do 
-        allow_any_instance_of(Api::V1::ItemsController).to receive(:current_user).and_return(another_user)
-        
+        allow_any_instance_of(Api::V1::ApiController).to receive(:current_user).and_return(another_user)
+
         patch :update, params: { id: item.id, item: item_params } 
         @json = JSON.parse(response.body)
       end
