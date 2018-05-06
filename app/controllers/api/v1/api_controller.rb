@@ -1,4 +1,5 @@
 class Api::V1::ApiController < ActionController::API
+
   include ActionController::HttpAuthentication::Basic::ControllerMethods
   
   after_action :clear_user_data
@@ -9,6 +10,14 @@ class Api::V1::ApiController < ActionController::API
   end
 
   private 
+
+  def render_result(result)
+    if result.success?
+      render json: result.obj
+    else
+      render json: { errors: result.obj.errors.full_messages }
+    end
+  end
   
   def verify_authentication
     case request.content_type

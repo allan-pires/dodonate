@@ -16,9 +16,8 @@ class ItemsController < ApplicationController
   end
 
   def create
-    @item = Item.new(item_params)
-    @item.user_id = current_user.id
-    if @item.save
+    result = ItemService.create_item(item_params, current_user)
+    if result.success?    
       flash[:success] = "Item added to donation!"
       redirect_to items_path
     else
@@ -32,8 +31,9 @@ class ItemsController < ApplicationController
   end
 
   def update
-    @item = Item.find(params[:id])
-    if @item.update_attributes(item_params)      
+    item = Item.find(params[:id])
+    result = ItemService.update_item(item, item_params)
+    if result.success?     
       flash[:success] = "Item updated!"
       redirect_to items_path
     else
@@ -43,8 +43,9 @@ class ItemsController < ApplicationController
   end
 
   def destroy
-    @item = Item.find(params[:id])
-    if @item.destroy
+    item = Item.find(params[:id])
+    result = ItemService.delete_item(item)
+    if result.success?    
       flash[:success] = "Item deleted!"
     else
       flash[:danger] = "Failed to destroy item!"

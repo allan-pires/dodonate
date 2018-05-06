@@ -23,29 +23,18 @@ class Api::V1::ItemsController < Api::V1::ApiController
   end
 
   def create
-    item = Item.new(item_params)
-    item.user_id = @current_user.id
-    if item.save
-      render json: item
-    else
-      render json: { errors: item.errors.full_messages }
-    end
+    result = ItemService.create_item(item_params, current_user)
+    render_result(result)
   end
 
-  def update    
-    if @item.update_attributes(item_params)      
-      render json: @item
-    else
-      render json: { errors: @item.errors.full_messages }
-    end
+  def update
+    result = ItemService.update_item(@item, item_params)
+    render_result(result)
   end
 
   def destroy
-    if @item.destroy
-      render json: { message: 'Item deleted!' }
-    else
-      render json: { errors: @item.errors.full_messages }
-    end    
+    result = ItemService.delete_item(@item)
+    render_result(result)    
   end
 
   private 

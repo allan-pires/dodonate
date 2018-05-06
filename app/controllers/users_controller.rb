@@ -1,12 +1,14 @@
-class UsersController < ApplicationController
+require_relative '../services/user_service'
 
+class UsersController < ApplicationController
+  
   def new
     @user = User.new
   end
 
   def create
-    @user = User.new(user_params)
-    if @user.save
+    result = UserService.create_user(user_params)
+    if result.success?
       flash[:success] = "Account created! Please log in"
       redirect_to login_path
     else
@@ -20,8 +22,7 @@ class UsersController < ApplicationController
   end
 
   def update
-    @user = current_user
-    if @user.update_attributes(user_params)
+    if UserService.update_user(current_user, user_params).success?
       flash[:success] = "Profile updated!"
       redirect_to profile_path
     else

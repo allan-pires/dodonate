@@ -1,3 +1,5 @@
+require_relative '../../../services/user_service'
+
 class Api::V1::UsersController < Api::V1::ApiController
   before_action :require_authentication, only: [:index, :show, :update, :destroy]
   before_action :user_exists?, only: [ :show, :update, :destroy ]
@@ -13,28 +15,18 @@ class Api::V1::UsersController < Api::V1::ApiController
   end
 
   def create
-    user = User.new(user_params)
-    if user.save
-      render json: user
-    else
-      render json: { errors: user.errors.full_messages }
-    end
+    result = UserService.create_user(user_params)
+    render_result(result)
   end
 
-  def update    
-    if @user.update_attributes(user_params)      
-      render json: @user
-    else
-      render json: { errors: @user.errors.full_messages }
-    end
+  def update
+    result = UserService.update_user(@user, user_params)
+    render_result(result)
   end
 
   def destroy
-    if @user.destroy
-      render json: { message: 'User deleted!' }
-    else
-      render json: { errors: @user.errors.full_messages }
-    end    
+    result = UserService.delete_user(@user)
+    render_result(result)
   end
 
   private 

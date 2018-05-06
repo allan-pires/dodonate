@@ -11,28 +11,18 @@ class Api::V1::ItemCategoriesController < Api::V1::ApiController
   end
 
   def create
-    item_category = ItemCategory.new(item_category_params)
-    if item_category.save
-      render json: item_category
-    else
-      render json: { errors: item_category.errors.full_messages }
-    end
+    result = ItemCategoryService.create_category(item_category_params)
+    render_result(result)
   end
 
   def update    
-    if @item_category.update_attributes(item_category_params)      
-      render json: @item_category
-    else
-      render json: { errors: @item_category.errors.full_messages }
-    end
+    result = ItemCategoryService.update_category(@item_category, item_category_params)
+    render_result(result)
   end
 
   def destroy
-    if @item_category.destroy
-      render json: { message: 'Item category deleted!' }
-    else
-      render json: { errors: @item_category.errors.full_messages }
-    end    
+    result = ItemCategoryService.delete_category(@item_category)
+    render_result(result)  
   end
 
   private 
