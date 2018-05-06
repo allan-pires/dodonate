@@ -15,7 +15,7 @@ describe Api::V1::UsersController do
   let (:user_params) do   
     {
       name: 'Ash Ketchum',
-      email: 'ash@pallet.com',
+      email: 'ashketchum@pallet.com',
       password: 'gottacatchthemall'
     }
   end
@@ -30,7 +30,7 @@ describe Api::V1::UsersController do
       end
 
       it { expect(response.status).to eq(200) }
-      it { expect(@json.size).to eq(1) }
+      it { expect(@json.size).to eq(2) }
     end
 
     context "GET fails when not authenticated" do
@@ -94,6 +94,16 @@ describe Api::V1::UsersController do
 
       it { expect(response.status).to eq(200) }
       it { expect(@json).to have_key("errors") }
+    end
+
+    context "POST creates a new user" do
+      before do 
+        post :create, params: { user: user_params } 
+        @json = JSON.parse(response.body)
+      end
+
+      it { expect(response.status).to eq(200) }
+      it { expect(@json["email"]).to eq("ashketchum@pallet.com") }
     end
   end
 

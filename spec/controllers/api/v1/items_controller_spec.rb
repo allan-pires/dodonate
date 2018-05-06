@@ -7,20 +7,20 @@ describe Api::V1::ItemsController do
     @request.env['HTTP_AUTHORIZATION'] = 
         ActionController::HttpAuthentication::Basic.encode_credentials(user.email, user.password)
 
-    allow_any_instance_of(Api::V1::ItemsController).to receive(:item_exists?).and_call_original
-    allow_any_instance_of(Api::V1::ItemsController).to receive(:current_user).and_return(user)   
+    allow_any_instance_of(Api::V1::ItemsController).to receive(:current_user).and_return(user)
   end
   
   let(:item_category) { ItemCategory.create(description: 'STUFF') }
   let(:user) { User.create(name: 'Ash Ketchum', email: 'ash@pallet.com', password: 'gottacatchthemall') }
+  let(:another_user) { User.create(name: 'Brock', email: 'brock@pewter.com', password: 'geoduderocks') }
   let(:item) { Item.create(name: 'Pokeball', description: 'Very basic pokeball, fails most of the time', quantity: 10, user_id: user.id, item_category_id: item_category.id) }
   let (:item_params) do   
     {
-      name: 'Pokeball',
-      description: "Very basic pokeball, fails most of the time",
-      quantity: 10,
-      user: user,
-      item_category: item_category
+      name: 'Greatball',
+      description: "Better than a normal pokeball",
+      quantity: 5,
+      user_id: user.id,
+      item_category_id: item_category.id
     }
   end
 
@@ -127,6 +127,16 @@ describe Api::V1::ItemsController do
       it { expect(response.status).to eq(200) }
       it { expect(@json).to have_key("errors") }
     end
+
+    context "POST creates a new item" do
+      before do 
+        post :create, params: { item: item_params } 
+        @json = JSON.parse(response.body)
+      end
+
+      it { expect(response.status).to eq(200) }
+      it { expect(@json["name"]).to eq("Greatball") }
+    end
   end
 
   describe "#update" do 
@@ -160,6 +170,18 @@ describe Api::V1::ItemsController do
 
       it { expect(response.status).to eq(200) }
       it { expect(@json).to have_key("errors") }
+    end
+
+    context "PATCH fails when user is not the owner" do
+      before do 
+        allow_any_instance_of(Api::V1::ItemsController).to receive(:current_user).and_return(another_user)
+        
+        patch :update, params: { id: item.id, item: item_params } 
+        @json = JSON.parse(response.body)
+      end
+
+      it { expect(response.status).to eq(200) }
+      it { expect(@json["errors"]).to eq("Not authorized") }
     end
   end
 
