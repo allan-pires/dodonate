@@ -34,9 +34,8 @@ class ItemsController < ApplicationController
   end
 
   def update
-    item = Item.find(params[:id])
-    result = CRUDService.update(item, item_params)
-    @item = result.obj
+    @item = Item.find(params[:id])
+    result = CRUDService.update(@item, item_params)
     if result.success?     
       flash[:success] = "Item updated!"
       return redirect_to items_path
