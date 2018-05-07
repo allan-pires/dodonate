@@ -19,6 +19,7 @@ class ItemsController < ApplicationController
     params = item_params
     params[:user_id] = current_user.id
     result = CRUDService.create(Item, params)
+    @item = result.obj
     if result.success?    
       flash[:success] = "Item added to donation!"
       return redirect_to items_path
@@ -35,6 +36,7 @@ class ItemsController < ApplicationController
   def update
     item = Item.find(params[:id])
     result = CRUDService.update(item, item_params)
+    @item = result.obj
     if result.success?     
       flash[:success] = "Item updated!"
       return redirect_to items_path

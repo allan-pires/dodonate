@@ -1,0 +1,23 @@
+<% unless @own_items.empty? %>
+  <div class="subtext">
+    <h2>My items</h2>
+    <% @own_items.each do |item| %>
+      <p>
+        ( <%= item.quantity %> ) <%= item.name %> 
+        <%= link_to fa_icon('pencil'), edit_item_path(item), class: 'edit-item' %>  
+        <%= link_to fa_icon('trash'), item_path(item.id), class: 'delete-item', data: { confirm: 'Are you sure you?' }, method: :delete %>
+      </p>
+    <% end %>
+  </div>
+<% end %>
+
+<% unless @other_items.empty? %>
+  <div class="subtext">
+    <h2>Other items</h2>
+    <% @other_items.each do |item| %>
+      <p>
+        <%= link_to "( #{item.quantity} ) #{item.name}", item_path(item.id)  %>
+      </p>
+    <% end %>
+  </div>
+<% end %>

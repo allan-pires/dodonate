@@ -6,30 +6,17 @@
   </div>
     <div class="col-md-8">
       <div class="jumbotron">
-        <div class="subtext">
-          <% if !@own_items.empty? %>
-            <h2>My items</h2>
-            <% @own_items.each do |item| %>
-              <p>
-                ( <%= item.quantity %> ) <%= item.name %> 
-                <%= link_to fa_icon('pencil'), edit_item_path(item), class: 'edit-item' %>  
-                <%= link_to fa_icon('trash'), item_path(item.id), class: 'delete-item', data: { confirm: 'Are you sure you?' }, method: :delete %>
-              </p>
-            <% end %>
-          <% end %>
-        </div>
-        <div class="subtext">
-          <h2>Other items</h2>
-          <% @other_items.each do |item| %>
-            <p>
-              <%= link_to "( #{item.quantity} ) #{item.name}", item_path(item.id)  %>
-            </p>
-          <% end %>
-        </div>
+        <%= render 'items/items_for_donation' %>
+        <% if @own_items.empty? && @other_items.empty? %>
+          <div class="subtext">
+            <p>No items for donation yet :(</p>
+          </div>
+        <% end %>
+
       </div>
     </div>
     <div class="col-md-4">
-      <div class="subtext tips">
+      <div class="subtext">
         <p> Here you can edit or remove items you added for donation.</p>
         <p> You can also look for an item you want and get in touch with the person who announced it.</p> 
       </div>
