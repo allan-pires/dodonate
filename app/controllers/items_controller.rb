@@ -16,16 +16,14 @@ class ItemsController < ApplicationController
   end
 
   def create
-    params = item_params
-    params[:user_id] = current_user.id
-    result = CRUDService.create(Item, params)
+    result = CRUDService.create(Item, item_params_with_user)
     @item = result.obj
+
     if result.success?    
       flash[:success] = "Item added to donation!"
       return redirect_to items_path
     end
 
-    flash[:danger] = "Failed to create item!"
     render 'new'
   end
 
@@ -41,7 +39,6 @@ class ItemsController < ApplicationController
       return redirect_to items_path
     end
 
-    flash[:danger] = "Failed to update item!"
     render 'edit'
   end
 
@@ -61,6 +58,12 @@ class ItemsController < ApplicationController
 
   def item_params
     params.require(:item).permit(:name, :item_category_id, :description, :quantity)
+  end
+
+  def item_params_with_user
+    params = item_params
+    params[:user_id] = current_user.id
+    params
   end
 
   def check_permission
