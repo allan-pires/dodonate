@@ -11,6 +11,7 @@ class Api::V1::ApiController < ActionController::API
   
   def verify_authentication
     auth_result = nil
+    
     if request.content_type == Mime[:json]
       authenticate_with_http_basic do |email, password| 
         auth_result = AuthenticationService.authenticate(email, password) 
@@ -23,9 +24,7 @@ class Api::V1::ApiController < ActionController::API
   end
 
   def render_result(result)
-    if result.success?
-      return render json: result.obj
-    end
+    return render json: result.obj if result.success?
     render json: { errors: result.obj.errors.full_messages }
   end
 

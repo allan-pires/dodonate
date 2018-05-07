@@ -2,27 +2,24 @@ class CRUDService
 
   private
 
-  def self.create(obj_class, attributes)
-    obj = obj_class.new(attributes)
-    if obj.save
-      return ServiceResult.new(obj, true)
-    end
-    ServiceResult.new(obj, false)
+  OPERATION_SUCCESSFUL = true
+  OPERATION_FAILED = false
+
+  def self.create(target_class, attributes)
+    obj = target_class.new(attributes)
+    
+    return ServiceResult.new(obj, OPERATION_SUCCESSFUL) if obj.save
+    ServiceResult.new(obj, OPERATION_FAILED)
   end
 
   def self.update(obj, new_attributes)
-    if obj.update_attributes(new_attributes)
-      ServiceResult.new(obj, true)
-     return ServiceResult.new(obj, true)
-    end
-    ServiceResult.new(obj, false)
+    return ServiceResult.new(obj, OPERATION_SUCCESSFUL) if obj.update_attributes(new_attributes)
+    ServiceResult.new(obj, OPERATION_FAILED)
   end
 
   def self.delete(model)
-    if model.destroy
-      return ServiceResult.new({message: "Successfully deleted!"}, true)
-    end  
-    ServiceResult.new(model, false)
+    return ServiceResult.new({message: "Successfully deleted!"}, OPERATION_SUCCESSFUL) if model.destroy
+    ServiceResult.new(model, OPERATION_FAILED)
   end
 
 end
