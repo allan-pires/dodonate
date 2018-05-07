@@ -13,13 +13,14 @@ After cloning the project to your machine, navegate to dodonate directory and ru
 
 ```
 docker-compose build
-docker-compose run web rake db:migrate
+docker-compose run web rake db:setup
 ```
 
 ## How to run
 ```
 docker-compose up
 ```
+Now you just have to access http://localhost:3000 and that's it!
 
 ## How to test
 ```
