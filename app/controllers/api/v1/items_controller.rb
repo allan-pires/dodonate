@@ -23,9 +23,7 @@ class Api::V1::ItemsController < Api::V1::ApiController
   end
 
   def create
-    params = item_params
-    params[:user_id] = current_user.id
-    result = CRUDService.create(Item, params)
+    result = CRUDService.create(Item, item_params_with_user)
     render_result(result)
   end
 
@@ -56,5 +54,11 @@ class Api::V1::ItemsController < Api::V1::ApiController
 
   def item_params
     params.require(:item).permit(:name, :item_category_id, :description, :quantity)
+  end
+
+  def item_params_with_user
+    params = item_params
+    params[:user_id] = current_user.id
+    params
   end
 end
