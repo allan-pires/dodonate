@@ -98,8 +98,6 @@ describe ItemsController do
       end
       
       it { expect(response.status).to eq(200) }
-      it { expect(flash[:danger]).to be_present }
-      it { expect(flash[:danger]).to eq("Failed to create item!") }
       it { expect(response).to render_template('new') }
     end
   end
@@ -118,8 +116,6 @@ describe ItemsController do
       before { patch :update, params: { id: item.id, item: { quantity: "ABC" } } }
 
       it { expect(response.status).to eq(200) }
-      it { expect(flash[:danger]).to be_present }
-      it { expect(flash[:danger]).to eq("Failed to update item!") }
       it { expect(response).to render_template('edit') }
     end
   end
