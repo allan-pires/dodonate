@@ -5,11 +5,11 @@ class Api::V1::UsersController < Api::V1::ApiController
   wrap_parameters :user, include: [:name, :email, :password, :password_confirmation]
 
   def index
-    render json: User.all
+    render json: User.all, except: :password_digest
   end
   
   def show
-    render json: @user
+    render json: @user, except: :password_digest
   end
 
   def create

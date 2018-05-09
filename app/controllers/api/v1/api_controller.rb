@@ -12,7 +12,7 @@ class Api::V1::ApiController < ActionController::API
   def verify_authentication
     auth_result = nil
     
-    if request.content_type == Mime[:json]
+    if request.content_type == Mime[:json] || request.get?
       authenticate_with_http_basic do |email, password| 
         auth_result = AuthenticationService.authenticate(email, password) 
       end
