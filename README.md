@@ -1,9 +1,9 @@
 # DoDonate
 ![dodo](https://i.imgur.com/s5o07Bv.png)
 
-[![CircleCI](https://circleci.com/bb/doislan/dodonate.svg?style=shield)](https://circleci.com/bb/doislan/dodonate)
+[![CircleCI](https://circleci.com/gh/doisLan/dodonate.svg?style=svg)](https://circleci.com/gh/doisLan/dodonate)
 
-![SimpleCov](https://bitbucket.org/doislan/dodonate/raw/master/coverage/coverage.svg?style=svg)
+![SimpleCov](https://raw.githubusercontent.com/doisLan/dodonate/master/coverage/coverage.svg?style=svg)
 
 ## About
 DoDonate is a web application that helps people who want to donate something to find where they can donate it.
