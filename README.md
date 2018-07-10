@@ -27,5 +27,8 @@ Now you just have to access http://localhost:3000 and that's it!
 docker-compose run web bundle exec rspec
 ```
 
+## API Docs
+https://documenter.getpostman.com/view/2110594/dodonate/RW1hiGXe
+
 ## Disclaimer
 Illustration by Stevan Rodic
