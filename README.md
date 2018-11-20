@@ -3,7 +3,7 @@
 
 [![CircleCI](https://circleci.com/gh/doisLan/dodonate.svg?style=svg)](https://circleci.com/gh/doisLan/dodonate)
 
-![SimpleCov](https://cdn.rawgit.com/doisLan/dodonate/master/coverage/coverage.svg)
+![SimpleCov](https://github.com/doisLan/dodonate/blob/master/coverage/coverage.svg)
 
 ## About
 DoDonate is a web application that helps people who want to donate something to find where they can donate it.
