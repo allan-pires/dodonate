@@ -12,7 +12,7 @@ gem 'coffee-rails', '~> 4.2', '>= 4.2.2'
 gem 'turbolinks', '~> 5'
 gem 'jbuilder', '~> 2.5'
 gem 'bootsnap', '>= 1.1.0', require: false
-gem 'bootstrap-sass', '3.3.7'
+gem 'bootstrap-sass', '3.4.0'
 gem 'bcrypt', '3.1.11'
 gem 'font-awesome-rails', '>= 4.7.0.4'
 
