@@ -32,7 +32,7 @@ end
 
 group :test do
   gem 'capybara', '>= 3.0.3', '< 4.0'
-  gem 'selenium-webdriver', '>= 3.11.0'
+  gem 'selenium-webdriver', '>= 3.141.0'
   gem 'chromedriver-helper', '>= 1.2.0'
   gem 'simplecov', require: false
   gem 'simplecov-shield'
