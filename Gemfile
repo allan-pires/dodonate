@@ -3,7 +3,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby '2.5.1'
 
-gem 'rails', '~> 5.2.1', '>= 5.2.1.1'
+gem 'rails', '~> 5.2.4', '>= 5.2.4.4'
 gem 'pg', '>= 0.18', '< 2.0'
 gem 'puma', '~> 3.11'
 gem 'sass-rails', '~> 5.0', '>= 5.0.7'
@@ -18,13 +18,13 @@ gem 'font-awesome-rails', '>= 4.7.0.4'
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
-  gem 'rspec-rails', '~> 3.7', '>= 3.7.2'
+  gem 'rspec-rails', '~> 3.8', '>= 3.8.2'
   gem 'factory_bot', "~> 4.0"
-  gem 'rails-controller-testing', '>= 1.0.2'
+  gem 'rails-controller-testing', '>= 1.0.4'
 end
 
 group :development do
-  gem 'web-console', '>= 3.6.2'
+  gem 'web-console', '>= 3.7.0'
   gem 'listen', '>= 3.1.5', '< 3.2'
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.1'
