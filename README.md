@@ -1,8 +1,6 @@
 # DoDonate
 ![dodo](https://i.imgur.com/s5o07Bv.png)
 
-[![CircleCI](https://circleci.com/gh/doisLan/dodonate.svg?style=svg)](https://circleci.com/gh/doisLan/dodonate)
-
 ![SimpleCov](https://github.com/doisLan/dodonate/blob/master/coverage/coverage.svg)
 
 ## About
