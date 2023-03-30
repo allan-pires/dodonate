@@ -6,7 +6,7 @@
 ## About
 DoDonate is a web application that helps people who want to donate something to find where they can donate it.
 
-## How to setup
+## How to Setup
 After cloning the project to your machine, navegate to dodonate directory and run the following commands:
 
 ```
@@ -14,13 +14,13 @@ docker-compose build
 docker-compose run web rake db:setup
 ```
 
-## How to run
+## How to Run
 ```
 docker-compose up
 ```
 Now you just have to access http://localhost:3000 and that's it!
 
-## How to test
+## How to Test
 ```
 docker-compose run web bundle exec rspec
 ```
